@@ -1,0 +1,43 @@
+.singlePostAlert {
+    position: absolute;
+    top: -40%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    text-align: center;
+    z-index: 15;
+}
+
+.singlePostAlert p,
+.singlePostAlert h4 {
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.postCardTitle,
+.postCardAbstrack {
+    direction: rtl;
+}
+
+.postCardTitle,
+.postCardAbstrack,
+.postCardDesc {
+    width: 100%;
+    height: auto;
+}
+
+.expandedPanelImageKeeper {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expandedPanelImageKeeper img {
+    width: 300px;
+    height: 300px;
+    max-width: 300px !important;
+}
