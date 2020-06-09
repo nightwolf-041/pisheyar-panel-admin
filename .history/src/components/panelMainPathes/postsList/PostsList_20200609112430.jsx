@@ -4,11 +4,9 @@ import {connect} from 'react-redux'
 import axiosConfig from '../../../axiosConfigure/axiosConfig'
 import PanelMainPostsListhead from '../../panelMain/panelMainHeads/PanelMainPostsListhead'
 import PanelMain from '../../panelMain/PanelMain'
-import ChangeInSliderDialog from '../../UI/dialogs/ChangeInSliderDialog'
 import * as pagesActionCreators from '../../../storeConfigure/actionCreators/pagesActionCreators'
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
-
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import Check from "@material-ui/icons/Check";
@@ -68,12 +66,12 @@ class PostsList extends React.Component{
           errorMsg: null,
           
           openDialog: false,
-          changeInSliderLoading: false,
+          ChangeInSliderLoading: false,
           changeInSliderData: null,
 
             columns: [
                 {
-                  field: "title",
+                  field: "postTitle",
                   title: "عنوان",
                     options: {
                         filter: true,
@@ -90,7 +88,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "viewCount",
+                  field: "postViewCount",
                   title: "تعداد بازدید",
                   editable: 'never',
                     options: {
@@ -99,7 +97,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "likeCount",
+                  field: "postLikeCount",
                   title: "تعداد لایک",
                   editable: 'never',
                     options: {
@@ -108,7 +106,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "modifiedDate",
+                  field: "postModifyDate",
                   title: "تاریخ ویرایش",
                   editable: 'never',
                     options: {
@@ -117,7 +115,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "isShow",
+                  field: "postIsShow",
                   title: "قابلیت نمایش",
                   editable: 'never',
                     options: {
@@ -144,27 +142,20 @@ class PostsList extends React.Component{
         axiosConfig.get('/Post/GetAll', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
-            console.log(res);
             this.setState({loading: false})
 
-            if(res.data.state === 1) {
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                  data: res.data.posts
-              })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
-              toast(res.data.message, {type: toast.TYPE.ERROR});
-            }
+            let data = res.data.posts
+            data.map(d => {
+              if(d.postIsShow === true) {
+                d.postIsShow = 'نمایش'
+              } else {
+                d.postIsShow = 'عدم نمایش'
+              }
+              return d.postIsShow
+            })
+            this.setState({
+                data: res.data.posts
+            })
 
         }).catch(err => {
 
@@ -187,9 +178,9 @@ class PostsList extends React.Component{
 
     // }
 
-    chekoutOfSliderHandler = () => {
+    ChekoutOfSliderHandler = () => {
       this.setState({
-        changeInSliderLoading: true
+        ChangeInSliderLoading: true
       })
 
       axiosConfig.post('/Post/ChangeInSliderStatus', {
@@ -200,113 +191,17 @@ class PostsList extends React.Component{
       }).then(firstRes => {
         if(firstRes.data.state === 1) {
           toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-
-          axiosConfig.get('/Post/GetAll', {
-            headers: { Authorization: "Bearer " + this.props.token }
-          }).then(res => {
-              this.setState({loading: false})
-  
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openDialog: false,
-                changeInSliderLoading: false
-              })
-  
-          }).catch(err => {
-  
-            this.setState({
-              loading: false,
-              errorMsg: err.message,
-              changeInSliderLoading: false
-            })
-  
-           this.errorOnCatch()
-          })
         }
 
         if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-          this.setState({
-            changeInSliderLoading: false
-          })
         }
-
-      }).catch(error => {
-        toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
-        this.setState({
-          changeInSliderLoading: false
-        })
+        
       })
     }
 
-    addToSliderHandler = () => {
-      this.setState({
-        changeInSliderLoading: true
-      })
+    AddToSliderHandler = () => {
 
-      axiosConfig.post('/Post/ChangeInSliderStatus', {
-        postGuid: this.state.changeInSliderData.postGuid,
-        inSliderStatus: true
-      }, {
-        headers: { Authorization: "Bearer " + this.props.token }
-      }).then(firstRes => {
-        if(firstRes.data.state === 1) {
-          toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-
-          axiosConfig.get('/Post/GetAll', {
-            headers: { Authorization: "Bearer " + this.props.token }
-          }).then(res => {
-              this.setState({loading: false})
-  
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openDialog: false,
-                changeInSliderLoading: false
-              })
-  
-          }).catch(err => {
-  
-            this.setState({
-              loading: false,
-              errorMsg: err.message,
-              changeInSliderLoading: false
-            })
-  
-           this.errorOnCatch()
-          })
-        }
-
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
-          toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-          this.setState({
-            changeInSliderLoading: false
-          })
-        }
-
-      }).catch(error => {
-        toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
-        this.setState({
-          changeInSliderLoading: false
-        })
-      })
     }
 
 
@@ -386,7 +281,7 @@ class PostsList extends React.Component{
                                 onClick: (event, rowData) => {
                                   this.setState({
                                     openDialog: true,
-                                    changeInSliderData: rowData
+                                    changeInSliderData: rowData.postGuid
                                   })
                                 }
                               }
@@ -449,23 +344,15 @@ class PostsList extends React.Component{
                     />
                 </div>
 
+                <ToastContainer autoClose={4000}
+                  position={toast.POSITION.BOTTOM_LEFT}
+                  hideProgressBar={false}
+                  closeOnClick={true}
+                  pauseOnVisibilityChange={false}
+                  pauseOnHover={false}
+                  rtl={true} />
+
             </PanelMain>
-
-            <ChangeInSliderDialog
-            openDialog={this.state.openDialog}
-            closeDialogHandler={this.closeDialogHandler}
-            changeInSliderLoading={this.state.changeInSliderLoading}
-            chekoutOfSliderHandler={this.chekoutOfSliderHandler}
-            addToSliderHandler={this.addToSliderHandler}
-            />
-
-            <ToastContainer autoClose={4000}
-              position={toast.POSITION.BOTTOM_LEFT}
-              hideProgressBar={false}
-              closeOnClick={true}
-              pauseOnVisibilityChange={false}
-              pauseOnHover={false}
-              rtl={true} />
             </>
         )
     }

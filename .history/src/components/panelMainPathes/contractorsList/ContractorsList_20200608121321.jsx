@@ -2,13 +2,14 @@ import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import axiosConfig from '../../../axiosConfigure/axiosConfig'
-import PanelMainPostsListhead from '../../panelMain/panelMainHeads/PanelMainPostsListhead'
+import PanelMainContractorsListhead from '../../panelMain/panelMainHeads/PanelMainContractorsListhead'
 import PanelMain from '../../panelMain/PanelMain'
-import ChangeInSliderDialog from '../../UI/dialogs/ChangeInSliderDialog'
+import ContractorsInfoModal from '../../UI/Modals/ContractorsInfoModal'
+import PersonDisablerDialog from '../../UI/dialogs/PersonDisablerDialog'
 import * as pagesActionCreators from '../../../storeConfigure/actionCreators/pagesActionCreators'
+
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
-
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import Check from "@material-ui/icons/Check";
@@ -23,14 +24,15 @@ import LastPage from "@material-ui/icons/LastPage";
 import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Description from "@material-ui/icons/Description";
+import Info from "@material-ui/icons/Info";
+import PersonAddDisabled from "@material-ui/icons/PersonAddDisabled";
 import Search from "@material-ui/icons/Search";
-import ViewCarousel from "@material-ui/icons/ViewCarousel";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import './postsList.css'
+// import './ordersList.css'
 
 
 const tableIcons = {
@@ -58,7 +60,7 @@ const tableIcons = {
 };
 
 
-class PostsList extends React.Component{
+class ContractorsList extends React.Component{
 
     constructor(props){
         super(props)
@@ -66,15 +68,18 @@ class PostsList extends React.Component{
 
           loading: false,
           errorMsg: null,
-          
-          openDialog: false,
-          changeInSliderLoading: false,
-          changeInSliderData: null,
+
+          showContractorInfoModal: null,
+          contractorInfoModalData: null,
+
+          showPersonDisablerDialog: false,
+          PersonDisablerDialogData: null,
+          personDisablerLoading: false,
 
             columns: [
                 {
-                  field: "title",
-                  title: "عنوان",
+                  field: "firstName",
+                  title: "نام",
                     options: {
                         filter: true,
                         sort: true,
@@ -82,16 +87,25 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "userFullName",
-                  title: "نام کاربر",
+                  field: "lastName",
+                  title: "نام خانوادگی",
+                    options: {
+                        filter: true,
+                        sort: true,
+                        fontFamily: 'Yekan'
+                    }
+                },
+                {
+                  field: "gender",
+                  title: "جنسیت",
                     options: {
                         filter: true,
                         sort: true
                     }
                 },
                 {
-                  field: "viewCount",
-                  title: "تعداد بازدید",
+                  field: "city",
+                  title: "شهر",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -99,8 +113,8 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "likeCount",
-                  title: "تعداد لایک",
+                  field: "credit",
+                  title: "اعتیار",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -108,8 +122,8 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "modifiedDate",
-                  title: "تاریخ ویرایش",
+                  field: "isActive",
+                  title: "وضعیت اکانت",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -117,8 +131,26 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "isShow",
-                  title: "قابلیت نمایش",
+                  field: "isRegister",
+                  title: "وضعیت ثبت نام",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "phoneNumber",
+                  title: "شماره تلفن",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "registeredDate",
+                  title: "تاریخ ثبت نام",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -141,171 +173,189 @@ class PostsList extends React.Component{
     componentDidMount() {
         this.setState({loading: true})
 
-        axiosConfig.get('/Post/GetAll', {
+        axiosConfig.get('/Account/GetAllContractors', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
-            console.log(res);
-            this.setState({loading: false})
+            console.log(res.data);
+            this.setState({
+                loading: false,
+                data: res.data.contractors
+            })
 
-            if(res.data.state === 1) {
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                  data: res.data.posts
-              })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
-              toast(res.data.message, {type: toast.TYPE.ERROR});
-            }
+            let data = res.data.contractors
+            data.map(d => {
+              if(d.isActive === true) {
+                d.isActive = 'فعال'
+              } else {
+                d.isActive = 'غیر فعال'
+              }
+              if(d.isRegister === true) {
+                d.isRegister = 'موفق'
+              } else {
+                d.isRegister = 'ناموفق'
+              }
+              return d.isActive, d.isRegister
+            })
+            this.setState({
+                data: res.data.contractors
+            })
 
         }).catch(err => {
+            console.log(err);
+            this.errorOnCatch()
 
-          this.setState({
-            loading: false,
-            errorMsg: err.message
-          })
+            this.setState({
+                loading: false,
+                errorMsg: err.message
+            })
 
-         this.errorOnCatch()
+        //  this.errorOnCatch()
         })
+    }
+
+    hideContractorInfoModal = () => {
+      this.setState({
+        showContractorInfoModal: false
+      })
     }
 
     closeDialogHandler = () => {
       this.setState({
-        openDialog: false,
+        showPersonDisablerDialog: false
       })
     }
 
-    // ChangeInSliderLoading = () => {
-
-    // }
-
-    chekoutOfSliderHandler = () => {
+    personDisableHandler = () => {
       this.setState({
-        changeInSliderLoading: true
+        personDisablerLoading: true
       })
 
-      axiosConfig.post('/Post/ChangeInSliderStatus', {
-        postGuid: this.state.changeInSliderData.postGuid,
-        inSliderStatus: false
+      console.log(this.state.PersonDisablerDialogData);
+
+      axiosConfig.post('/Account/ChangeActiveness', {
+        userGuid: this.state.PersonDisablerDialogData.userGuid,
+        isActive: false
+      }, {
+        headers: { Authorization: "Bearer " + this.props.token }
+      }).then(firstRes => {
+        console.log(firstRes);
+
+        if(firstRes.data.state === 1) {
+          toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
+        }
+
+        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
+          toast(firstRes.data.message, {type: toast.TYPE.ERROR});
+        }
+
+        axiosConfig.get('/Account/GetAllContractors', {
+          headers: { Authorization: "Bearer " + this.props.token }
+        }).then(res => {
+            console.log(res.data);
+            this.setState({
+                loading: false,
+                data: res.data.contractors
+            })
+
+            let data = res.data.contractors
+            data.map(d => {
+              if(d.isActive === true) {
+                d.isActive = 'فعال'
+              } else {
+                d.isActive = 'غیر فعال'
+              }
+              if(d.isRegister === true) {
+                d.isRegister = 'موفق'
+              } else {
+                d.isRegister = 'ناموفق'
+              }
+              return d.isActive, d.isRegister
+            })
+            this.setState({
+                data: res.data.contractors,
+                personDisablerLoading: false,
+                showPersonDisablerDialog: false
+            })
+
+        }).catch(err => {
+            console.log(err);
+            toast('خطا در بارگیری مجدد لیست', {type: toast.TYPE.ERROR});
+
+            this.setState({
+                loading: false,
+                errorMsg: err.message,
+                personDisablerLoading: false,
+                showPersonDisablerDialog: false
+            })
+
+        //  this.errorOnCatch()
+        })
+      }).catch(error => {
+        toast('خطا در تغییر فعالیت کاربر', {type: toast.TYPE.ERROR});
+      })
+    }
+
+    personActivatorHandler = () => {
+      this.setState({
+        personDisablerLoading: true
+      })
+
+      axiosConfig.post('/Account/ChangeActiveness', {
+        userGuid: this.state.PersonDisablerDialogData.contractorGuid,
+        isActive: true
       }, {
         headers: { Authorization: "Bearer " + this.props.token }
       }).then(firstRes => {
         if(firstRes.data.state === 1) {
           toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-
-          axiosConfig.get('/Post/GetAll', {
-            headers: { Authorization: "Bearer " + this.props.token }
-          }).then(res => {
-              this.setState({loading: false})
-  
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openDialog: false,
-                changeInSliderLoading: false
-              })
-  
-          }).catch(err => {
-  
-            this.setState({
-              loading: false,
-              errorMsg: err.message,
-              changeInSliderLoading: false
-            })
-  
-           this.errorOnCatch()
-          })
         }
-
         if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-          this.setState({
-            changeInSliderLoading: false
-          })
         }
 
-      }).catch(error => {
-        toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
-        this.setState({
-          changeInSliderLoading: false
-        })
-      })
-    }
-
-    addToSliderHandler = () => {
-      this.setState({
-        changeInSliderLoading: true
-      })
-
-      axiosConfig.post('/Post/ChangeInSliderStatus', {
-        postGuid: this.state.changeInSliderData.postGuid,
-        inSliderStatus: true
-      }, {
-        headers: { Authorization: "Bearer " + this.props.token }
-      }).then(firstRes => {
-        if(firstRes.data.state === 1) {
-          toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-
-          axiosConfig.get('/Post/GetAll', {
-            headers: { Authorization: "Bearer " + this.props.token }
-          }).then(res => {
-              this.setState({loading: false})
-  
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openDialog: false,
-                changeInSliderLoading: false
-              })
-  
-          }).catch(err => {
-  
+        axiosConfig.get('/Account/GetAllContractors', {
+          headers: { Authorization: "Bearer " + this.props.token }
+        }).then(res => {
+            console.log(res.data);
             this.setState({
-              loading: false,
-              errorMsg: err.message,
-              changeInSliderLoading: false
+                loading: false,
+                data: res.data.contractors
             })
-  
-           this.errorOnCatch()
-          })
-        }
 
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
-          toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-          this.setState({
-            changeInSliderLoading: false
-          })
-        }
+            let data = res.data.contractors
+            data.map(d => {
+              if(d.isActive === true) {
+                d.isActive = 'فعال'
+              } else {
+                d.isActive = 'غیر فعال'
+              }
+              if(d.isRegister === true) {
+                d.isRegister = 'موفق'
+              } else {
+                d.isRegister = 'ناموفق'
+              }
+              return d.isActive, d.isRegister
+            })
+            this.setState({
+                data: res.data.contractors,
+                personDisablerLoading: false,
+                showPersonDisablerDialog: false
+            })
+
+        }).catch(err => {
+            console.log(err);
+            toast('خطا در بارگیری مجدد لیست', {type: toast.TYPE.ERROR});
+
+            this.setState({
+                loading: false,
+                errorMsg: err.message,
+                personDisablerLoading: false,
+                showPersonDisablerDialog: false
+            })
+        })
 
       }).catch(error => {
-        toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
-        this.setState({
-          changeInSliderLoading: false
-        })
+        toast('خطا در تغییر فعالیت کاربر', {type: toast.TYPE.ERROR});
       })
     }
 
@@ -313,7 +363,8 @@ class PostsList extends React.Component{
     render() {
         return (
             <>
-            <PanelMain header={<PanelMainPostsListhead />}>
+            
+            <PanelMain header={<PanelMainContractorsListhead />}>
                 {
                   this.state.loading ?
                   <div className="d-flex justify-content-center">
@@ -325,6 +376,7 @@ class PostsList extends React.Component{
                    
                   : null
                 }
+
                 <div style={{ width: "100%" }} dir="rtl">
                     <MaterialTable
                         style={{ margin: 0, minWidth: "30%", boxShadow: 'none' }}
@@ -367,29 +419,40 @@ class PostsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست پست ها"
+                        title="لیست سرویس دهنده ها"
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
                             {
                               icon: Description,
-                              tooltip: 'مشاهده پست',
+                              tooltip: 'مشاهده درخواست',
                               onClick: (event, rowData) => {
-                                this.props.onSaveSinglePost(rowData.postGuid)
-                                this.props.history.push('/singlePost' )
-                                this.props.history.state = 'showSinglepost'
-                              }
+                                this.props.onSaveOrderRequest(rowData.orderGuid)
+                                this.props.history.push('/OrderRequestList' )
+                                this.props.history.state = 'showOrderRequest'
+                            }
                             },
                             {
-                                icon: ViewCarousel,
-                                tooltip: 'تغییر از/به اسلایدر',
+                                icon: Info,
+                                tooltip: 'اطلاعات',
                                 onClick: (event, rowData) => {
-                                  this.setState({
-                                    openDialog: true,
-                                    changeInSliderData: rowData
-                                  })
+                                //   this.props.onSaveOrderRequest(rowData.orderGuid)
+                                    this.setState({
+                                        showContractorInfoModal: true,
+                                        contractorInfoModalData: rowData
+                                    })
                                 }
-                              }
+                            },
+                            {
+                                icon: PersonAddDisabled,
+                                tooltip: 'فعال/غیرفعال کردن',
+                                onClick: (event, rowData) => {
+                                    this.setState({
+                                        showPersonDisablerDialog: true,
+                                        PersonDisablerDialogData: rowData
+                                    })
+                                }
+                            },
                           ]}
                         editable={{
                         // onRowUpdate: (newData, oldData) =>
@@ -419,8 +482,8 @@ class PostsList extends React.Component{
                             
                           new Promise((resolve, reject) => {
                             axiosConfig
-                              .post(`/Post/Delete/${oldData.postGuid}`, {
-                                guid: oldData.postGuid
+                              .post(`/Account/Delete/${oldData.contractorGuid}`, {
+                                guid: oldData.contractorGuid
                               }, {
                                 headers: { Authorization: "Bearer " + this.props.token }
                             }).then(res => {
@@ -432,16 +495,16 @@ class PostsList extends React.Component{
                                   return { ...prevState, data };
                                 }, () => {
                                   resolve()
-                                  toast('پست با موفقیت حذف شد', {type: toast.TYPE.SUCCESS});
+                                  toast('کاربر با موفقیت حذف شد', {type: toast.TYPE.SUCCESS});
                                 })
                               } else{
                                 reject()
-                                toast('خطا در حذف پست', {type: toast.TYPE.ERROR});
+                                toast('خطا در حذف کاربر', {type: toast.TYPE.ERROR});
                               }
 
                             }).catch(err => {
                               reject()
-                              toast('خطا در حذف پست', {type: toast.TYPE.ERROR});
+                              toast('خطا در حذف کاربر', {type: toast.TYPE.ERROR});
                             })
                             
                           })
@@ -451,21 +514,28 @@ class PostsList extends React.Component{
 
             </PanelMain>
 
-            <ChangeInSliderDialog
-            openDialog={this.state.openDialog}
-            closeDialogHandler={this.closeDialogHandler}
-            changeInSliderLoading={this.state.changeInSliderLoading}
-            chekoutOfSliderHandler={this.chekoutOfSliderHandler}
-            addToSliderHandler={this.addToSliderHandler}
-            />
+              <ContractorsInfoModal
+                showContractorInfoModal={this.state.showContractorInfoModal}
+                hideContractorInfoModal={this.hideContractorInfoModal}
+                contractorInfoModalData={this.state.contractorInfoModalData}
+                />
 
-            <ToastContainer autoClose={4000}
-              position={toast.POSITION.BOTTOM_LEFT}
-              hideProgressBar={false}
-              closeOnClick={true}
-              pauseOnVisibilityChange={false}
-              pauseOnHover={false}
-              rtl={true} />
+              <PersonDisablerDialog
+                openDialog={this.state.showPersonDisablerDialog}
+                data={this.state.PersonDisablerDialogData}
+                closeDialogHandler={this.closeDialogHandler}
+                personDisablerLoading={this.state.personDisablerLoading}
+                personDisableHandler={this.personDisableHandler}
+                personActivatorHandler={this.personActivatorHandler}
+                />
+
+              <ToastContainer autoClose={4000}
+                position={toast.POSITION.BOTTOM_LEFT}
+                hideProgressBar={false}
+                closeOnClick={true}
+                pauseOnVisibilityChange={false}
+                pauseOnHover={false}
+                rtl={true} />
             </>
         )
     }
@@ -475,14 +545,14 @@ class PostsList extends React.Component{
 const mapState = state => {
     return {
       token: state.authReducer.token,
-      postGuid: state.pages.postGuid
+    //   postGuid: state.pages.postGuid
     }
 }
 
 const mapDispatch = dispatch => {
     return {
-      onSaveSinglePost: (postGuid) => dispatch(pagesActionCreators.saveSinglePost(postGuid))
+        onSaveOrderRequest: (orderGuid) => dispatch(pagesActionCreators.saveOrderRequest(orderGuid))
     }
 }
 
-export default connect(mapState, mapDispatch)(withRouter(PostsList))
+export default connect(mapState, mapDispatch)(withRouter(ContractorsList))

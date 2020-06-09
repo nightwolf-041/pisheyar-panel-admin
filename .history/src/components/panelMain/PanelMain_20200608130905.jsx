@@ -34,7 +34,7 @@ const PanelMain = (props) => {
                 {props.header}
                 
                 <div className={props.transparentBack === true ?
-                classes.mainSectionPathesSectionTransparent
+                classes. mainSectionPathesSectionTransparent
                 : 
                 classes.mainSectionPathesSection}>
                     {props.children}

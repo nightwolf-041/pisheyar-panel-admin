@@ -49,7 +49,7 @@ class PanelSidebar extends Component {
                 {
                     name: 'مدیریت مالی', id: 'three',
                     linksInDrop: [
-                        { name: 'گزارشات مالی', id: 'lone', path: '/financialReport' },
+                        { name: 'گزارشات مالی', id: 'lone', path: '/maliList' },
                         { name: 'لیست تراکنش ها', id: 'ltwo', path: '/paymentsList' },
                     ]
                 },

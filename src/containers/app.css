@@ -10,6 +10,13 @@
     font-family: Yekan !important;
 }
 
+.Toastify__toast-body {
+    text-align: right !important;
+}
+
+.MuiDialog-paper {
+    margin: 0 !important;
+}
 
 /* CKEditor neceseries styles  */
 

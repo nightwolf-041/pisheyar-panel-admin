@@ -22,7 +22,7 @@ const OrderRequestList = React.lazy(() =>
     import ('../components/panelMainPathes/orderRequestList/OrderRequestList'))
 const OrderRequestChats = React.lazy(() =>
     import ('../components/panelMainPathes/orderRequestChats/OrderRequestChats'))
-const FinancialReport = React.lazy(() =>
+const financialReport = React.lazy(() =>
     import ('../components/panelMainPathes/financialReport/FinancialReport'))
 const PaymentsList = React.lazy(() =>
     import ('../components/panelMainPathes/paymentsList/PaymentsList'))

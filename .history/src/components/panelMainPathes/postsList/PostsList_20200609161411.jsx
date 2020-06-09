@@ -454,7 +454,7 @@ class PostsList extends React.Component{
             <ChangeInSliderDialog
             openDialog={this.state.openDialog}
             closeDialogHandler={this.closeDialogHandler}
-            changeInSliderLoading={this.state.changeInSliderLoading}
+            changeInSliderLoading={this.state.ChangeInSliderLoading}
             chekoutOfSliderHandler={this.chekoutOfSliderHandler}
             addToSliderHandler={this.addToSliderHandler}
             />

@@ -278,16 +278,14 @@ class PostsList extends React.Component{
               })
               this.setState({
                 data: res.data.posts,
-                openDialog: false,
-                changeInSliderLoading: false
+                openDialog: false
               })
   
           }).catch(err => {
   
             this.setState({
               loading: false,
-              errorMsg: err.message,
-              changeInSliderLoading: false
+              errorMsg: err.message
             })
   
            this.errorOnCatch()
@@ -296,16 +294,10 @@ class PostsList extends React.Component{
 
         if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-          this.setState({
-            changeInSliderLoading: false
-          })
         }
 
       }).catch(error => {
         toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
-        this.setState({
-          changeInSliderLoading: false
-        })
       })
     }
 
@@ -454,7 +446,7 @@ class PostsList extends React.Component{
             <ChangeInSliderDialog
             openDialog={this.state.openDialog}
             closeDialogHandler={this.closeDialogHandler}
-            changeInSliderLoading={this.state.changeInSliderLoading}
+            changeInSliderLoading={this.state.ChangeInSliderLoading}
             chekoutOfSliderHandler={this.chekoutOfSliderHandler}
             addToSliderHandler={this.addToSliderHandler}
             />

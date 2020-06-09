@@ -73,7 +73,7 @@ class PostsList extends React.Component{
 
             columns: [
                 {
-                  field: "title",
+                  field: "postTitle",
                   title: "عنوان",
                     options: {
                         filter: true,
@@ -90,7 +90,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "viewCount",
+                  field: "postViewCount",
                   title: "تعداد بازدید",
                   editable: 'never',
                     options: {
@@ -99,7 +99,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "likeCount",
+                  field: "postLikeCount",
                   title: "تعداد لایک",
                   editable: 'never',
                     options: {
@@ -108,7 +108,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "modifiedDate",
+                  field: "postModifyDate",
                   title: "تاریخ ویرایش",
                   editable: 'never',
                     options: {
@@ -117,7 +117,7 @@ class PostsList extends React.Component{
                     }
                 },
                 {
-                  field: "isShow",
+                  field: "postIsShow",
                   title: "قابلیت نمایش",
                   editable: 'never',
                     options: {
@@ -189,7 +189,7 @@ class PostsList extends React.Component{
 
     chekoutOfSliderHandler = () => {
       this.setState({
-        changeInSliderLoading: true
+        ChangeInSliderLoading: true
       })
 
       axiosConfig.post('/Post/ChangeInSliderStatus', {
@@ -217,16 +217,14 @@ class PostsList extends React.Component{
               })
               this.setState({
                 data: res.data.posts,
-                openDialog: false,
-                changeInSliderLoading: false
+                openDialog: false
               })
   
           }).catch(err => {
   
             this.setState({
               loading: false,
-              errorMsg: err.message,
-              changeInSliderLoading: false
+              errorMsg: err.message
             })
   
            this.errorOnCatch()
@@ -235,22 +233,16 @@ class PostsList extends React.Component{
 
         if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-          this.setState({
-            changeInSliderLoading: false
-          })
         }
 
       }).catch(error => {
         toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
-        this.setState({
-          changeInSliderLoading: false
-        })
       })
     }
 
     addToSliderHandler = () => {
       this.setState({
-        changeInSliderLoading: true
+        ChangeInSliderLoading: true
       })
 
       axiosConfig.post('/Post/ChangeInSliderStatus', {
@@ -278,16 +270,14 @@ class PostsList extends React.Component{
               })
               this.setState({
                 data: res.data.posts,
-                openDialog: false,
-                changeInSliderLoading: false
+                openDialog: false
               })
   
           }).catch(err => {
   
             this.setState({
               loading: false,
-              errorMsg: err.message,
-              changeInSliderLoading: false
+              errorMsg: err.message
             })
   
            this.errorOnCatch()
@@ -296,16 +286,10 @@ class PostsList extends React.Component{
 
         if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-          this.setState({
-            changeInSliderLoading: false
-          })
         }
 
       }).catch(error => {
         toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
-        this.setState({
-          changeInSliderLoading: false
-        })
       })
     }
 
@@ -386,7 +370,7 @@ class PostsList extends React.Component{
                                 onClick: (event, rowData) => {
                                   this.setState({
                                     openDialog: true,
-                                    changeInSliderData: rowData
+                                    changeInSliderData: rowData.postGuid
                                   })
                                 }
                               }
@@ -454,7 +438,7 @@ class PostsList extends React.Component{
             <ChangeInSliderDialog
             openDialog={this.state.openDialog}
             closeDialogHandler={this.closeDialogHandler}
-            changeInSliderLoading={this.state.changeInSliderLoading}
+            changeInSliderLoading={this.state.ChangeInSliderLoading}
             chekoutOfSliderHandler={this.chekoutOfSliderHandler}
             addToSliderHandler={this.addToSliderHandler}
             />
