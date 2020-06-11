@@ -423,15 +423,15 @@ class ContractorsList extends React.Component{
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
-                            {
-                              icon: Description,
-                              tooltip: 'مشاهده پرداخت ها',
-                              onClick: (event, rowData) => {
-                                this.props.onSaveOrderRequest(rowData.orderGuid)
-                                this.props.history.push('/OrderRequestList' )
-                                this.props.history.state = 'showOrderRequest'
-                            }
-                            },
+                            // {
+                            //   icon: Description,
+                            //   tooltip: 'مشاهده پرداخت ها',
+                            //   onClick: (event, rowData) => {
+                            //     this.props.onSaveContractorPayment(rowData.contractorGuid)
+                            //     this.props.history.push('/OrderRequestList' )
+                            //     this.props.history.state = 'showOrderRequest'
+                            // }
+                            // },
                             {
                                 icon: Info,
                                 tooltip: 'اطلاعات',

@@ -209,7 +209,7 @@ class PaymentsList extends React.Component{
             successfulStatus: null
         }
         console.log(data);
-
+        
         axiosConfig.get('/Payment/GetAll', {
             headers: { Authorization: "Bearer " + this.props.token }
         }, {
@@ -252,8 +252,8 @@ class PaymentsList extends React.Component{
     }
 
     logger({ start, end }) {
-        // console.log("start ", start);
-        // console.log("end ", end);
+        console.log("start ", start);
+        console.log("end ", end);
     }
 
     render() {

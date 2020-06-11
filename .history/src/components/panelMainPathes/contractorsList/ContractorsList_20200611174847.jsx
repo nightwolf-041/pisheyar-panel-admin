@@ -427,7 +427,7 @@ class ContractorsList extends React.Component{
                               icon: Description,
                               tooltip: 'مشاهده پرداخت ها',
                               onClick: (event, rowData) => {
-                                this.props.onSaveOrderRequest(rowData.orderGuid)
+                                this.props.onSaveContractorPayment(rowData.contractorGuid)
                                 this.props.history.push('/OrderRequestList' )
                                 this.props.history.state = 'showOrderRequest'
                             }
