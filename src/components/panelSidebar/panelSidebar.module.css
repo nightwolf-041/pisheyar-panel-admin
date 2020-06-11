@@ -389,7 +389,17 @@
     width: 100%;
     transition: height 0.2s linear;
     -webkit-transition: height 0.2s linear;
+    /* animation: droped 0.2s ease; */
 }
+
+/* @keyframes droped{
+    0%{
+        height: 0;
+    }
+    100%{
+        height: auto
+    }
+} */
 
 .layoutSidebarBodyTop1DropLink {
     display: block;

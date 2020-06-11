@@ -1,0 +1,34 @@
+.datePickersBox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.datePickersBoxRight {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.datePickerKeeper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: 2rem;
+}
+
+.datePickerKeeper span {
+    margin-left: 0.5rem;
+}
+
+.rangeDatePicker {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
