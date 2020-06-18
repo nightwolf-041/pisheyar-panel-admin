@@ -7,11 +7,7 @@ const HomePage = React.lazy(() =>
 const ContractorsList = React.lazy(() =>
     import ('../components/panelMainPathes/contractorsList/ContractorsList'))
 const ClientsList = React.lazy(() =>
-        import ('../components/panelMainPathes/clientsList/ClientsList'))
-    // const ChatBox = React.lazy(() =>
-    //     import ('../components/panelMainPathes/chatBox/ChatBox'))
-const SettingsPage = React.lazy(() =>
-    import ('../components/panelMainPathes/settingsPage/SettingsPage'))
+    import ('../components/panelMainPathes/clientsList/ClientsList'))
 const PostCreate = React.lazy(() =>
     import ('../components/panelMainPathes/postCreate/PostCreate'))
 const PostsList = React.lazy(() =>
@@ -40,19 +36,41 @@ const SinglePost = React.lazy(() =>
     import ('../components/panelMainPathes/singlePost/SinglePost'))
 const PostEdit = React.lazy(() =>
     import ('../components/panelMainPathes/postEdit/PostEdit'))
+const SuggestionList = React.lazy(() =>
+    import ('../components/panelMainPathes/suggestionList/SuggestionList'))
+const ComplaintsList = React.lazy(() =>
+    import ('../components/panelMainPathes/complaintsList/ComplaintsList'))
+const ContactUsList = React.lazy(() =>
+    import ('../components/panelMainPathes/contactUsList/ContactUsList'))
+const SettingsPage = React.lazy(() =>
+    import ('../components/panelMainPathes/settingsPage/SettingsPage'))
 const CategoriesList = React.lazy(() =>
     import ('../components/panelMainPathes/categoriesList/CategoriesList'))
 const Categories = React.lazy(() =>
     import ('../components/panelMainPathes/categories/Categories'))
+const CodeGroupesList = React.lazy(() =>
+    import ('../components/panelMainPathes/codeGroupesList/CodeGroupesList'))
+const CodesList = React.lazy(() =>
+    import ('../components/panelMainPathes/codesList/CodesList'))
+const ProvincesList = React.lazy(() =>
+    import ('../components/panelMainPathes/provincesList/ProvincesList'))
+const CitiesList = React.lazy(() =>
+    import ('../components/panelMainPathes/citiesList/CitiesList'))
+const AdminsList = React.lazy(() =>
+    import ('../components/panelMainPathes/adminsList/AdminsList'))
+const RolesList = React.lazy(() =>
+    import ('../components/panelMainPathes/rolesList/RolesList'))
+const PermissionsList = React.lazy(() =>
+    import ('../components/panelMainPathes/permissionsList/PermissionsList'))
+const DiscountList = React.lazy(() =>
+    import ('../components/panelMainPathes/discountList/DiscountList'))
 const notFound = React.lazy(() =>
     import ('../components/404/notFound'))
-
 
 const routs = [
     { exact: true, path: '/', component: HomePage },
     { exact: true, path: '/contractorsList', component: ContractorsList },
     { exact: true, path: '/clientsList', component: ClientsList },
-    // { exact: true, path: '/chat', component: ChatBox },
     { exact: true, path: '/postCreate', component: PostCreate },
     { exact: true, path: '/postsList', component: PostsList },
     { exact: true, path: '/suggestedPostsList', component: SuggestedPostsList },
@@ -65,12 +83,22 @@ const routs = [
     { exact: true, path: '/paymentsList', component: PaymentsList },
     { exact: true, path: '/loyalUsersList', component: LoyalUsersList },
     { exact: true, path: '/paymantsSortByDateList', component: PaymantsSortByDateList },
-    { exact: true, path: '/settings', component: SettingsPage },
     { exact: true, path: '/singlePost', component: SinglePost },
     { exact: true, path: '/postEdit', component: PostEdit },
+    { exact: true, path: '/suggestionList', component: SuggestionList },
+    { exact: true, path: '/complaintsList', component: ComplaintsList },
+    { exact: true, path: '/contactUsList', component: ContactUsList },
+    { exact: true, path: '/settings', component: SettingsPage },
     { exact: true, path: '/categoriesList', component: CategoriesList },
     { exact: true, path: '/category', component: Categories },
+    { exact: true, path: '/codeGroupesList', component: CodeGroupesList },
+    { exact: true, path: '/codesList', component: CodesList },
+    { exact: true, path: '/provincesList', component: ProvincesList },
+    { exact: true, path: '/citiesList', component: CitiesList },
+    { exact: true, path: '/adminsList', component: AdminsList },
+    { exact: true, path: '/rolesList', component: RolesList },
+    { exact: true, path: '/permissionsList', component: PermissionsList },
+    { exact: true, path: '/discountList', component: DiscountList },
     { path: '*', component: notFound }
 ]
-
 export default routs

@@ -1,8 +1,10 @@
 // this file is settings component of panel in /settings route
 
 import React from 'react';
+import { Link } from 'react-router-dom'
 import PanelMainSettingshead from '../../panelMain/panelMainHeads/PanelMainSettingshead'
 import PanelMain from '../../panelMain/PanelMain';
+// import WalletSettingModal from '../'
 import './settingsPage.css'
 
 import PropTypes from 'prop-types';
@@ -73,6 +75,9 @@ function SettingsPage() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
+  const [showInitialCreditModal, setShowInitialCreditModal] = React.useState(false);
+  const [showRequestsPriceModal, setShowRequestsPriceModal] = React.useState(false);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -82,8 +87,18 @@ function SettingsPage() {
       variable = "scrollable"
   }
 
+  const showInitialCreditModalHandler = () => {
+    setShowInitialCreditModal(true)
+  }
+
+  const showRequestsPriceModalHandler = () => {
+    setShowRequestsPriceModal(true)
+  }
+
+
 // render() {
     return (
+      <>
         <PanelMain header={<PanelMainSettingshead />} >
 
           <div className={classes.root} dir="rtl">
@@ -98,78 +113,95 @@ function SettingsPage() {
                 textColor="primary"
                 aria-label="scrollable force tabs"
               >
-                <Tab label="اصلی" icon={<HomeIcon />} {...a11yProps(0)} />
-                <Tab label="صفحات" icon={<ImportContactsIcon />} {...a11yProps(1)} />
+                <Tab label="عمومی" icon={<HomeIcon />} {...a11yProps(0)} />
+                <Tab label="استان ها" icon={<ImportContactsIcon />} {...a11yProps(1)} />
                 <Tab label="کاربران" icon={<PeopleIcon />} {...a11yProps(2)} />
-                <Tab label="شبکه" icon={<SettingsInputAntennaIcon />} {...a11yProps(3)} />
+                <Tab label="مالی" icon={<SettingsInputAntennaIcon />} {...a11yProps(3)} />
                 <Tab label="سرور" icon={<DnsIcon />} {...a11yProps(4)} />
                 <Tab label="پنل" icon={<DashboardIcon />} {...a11yProps(5)} />
               </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-            <div className="layout-nav-setting-box-item">
-              <div className="layout-nav-setting-box-item-left">
-                  <div className="layout-nav-setting-box-item-left-plusbox">
-                  <FontAwesomeIcon icon={faPlus} className="layout-nav-setting-box-item-left-plus"/>
-                  </div>
-                  <div className="layout-nav-setting-box-item-left-menubox">
-                  <FontAwesomeIcon icon={faBars} className="layout-nav-setting-box-item-left-menu"/>
-                  </div>
-              </div>
-              <div className="layout-nav-setting-box-item-right">
-              <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
-                  <p className="layout-nav-setting-box-item-right-text">دسته بندی</p>
-              </div>
-          </div>
+              <Link to="/categoriesList" className="layout-nav-setting-box-item">
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">دسته بندی</p>
+                </div>
+              </Link>
+              <Link to="/codeGroupesList" className="layout-nav-setting-box-item">
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">مقادیر اولیه</p>
+                </div>
+              </Link>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              دسترسی ندارید
+              <Link to="/provincesList" className="layout-nav-setting-box-item">
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">مقادیر اولیه</p>
+                </div>
+              </Link>
             </TabPanel>
             <TabPanel value={value} index={2}>
-            <div className="layout-nav-setting-box-item">
-              <div className="layout-nav-setting-box-item-left">
-                  <div className="layout-nav-setting-box-item-left-plusbox">
-                  <FontAwesomeIcon icon={faPlus} className="layout-nav-setting-box-item-left-plus"/>
-                  </div>
-                  <div className="layout-nav-setting-box-item-left-menubox">
-                  <FontAwesomeIcon icon={faBars} className="layout-nav-setting-box-item-left-menu"/>
-                  </div>
-              </div>
-              <div className="layout-nav-setting-box-item-right">
-              <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
-                  <p className="layout-nav-setting-box-item-right-text">محل اصلی</p>
-              </div>
-          </div>
+              <Link to="/adminsList" className="layout-nav-setting-box-item">
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">لیست ادمین</p>
+                </div>
+              </Link>
+              <Link to="/rolesList" className="layout-nav-setting-box-item">
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">لیست نقش</p>
+                </div>
+              </Link>
+              <Link to="/permissionsList" className="layout-nav-setting-box-item">
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">لیست دسترسی ها</p>
+                </div>
+              </Link>
             </TabPanel>
             <TabPanel value={value} index={3}>
-            <div className="layout-nav-setting-box-item">
-              <div className="layout-nav-setting-box-item-left">
-                  <div className="layout-nav-setting-box-item-left-plusbox">
-                  <FontAwesomeIcon icon={faPlus} className="layout-nav-setting-box-item-left-plus"/>
-                  </div>
-                  <div className="layout-nav-setting-box-item-left-menubox">
-                  <FontAwesomeIcon icon={faBars} className="layout-nav-setting-box-item-left-menu"/>
-                  </div>
+              <div className="layout-nav-setting-box-item"
+              onClick={showInitialCreditModalHandler}>
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">شارژ اولیه حساب ها</p>
+                </div>
               </div>
-              <div className="layout-nav-setting-box-item-right">
-              <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
-                  <p className="layout-nav-setting-box-item-right-text">محل اصلی</p>
+              <div className="layout-nav-setting-box-item"
+              onClick={showRequestsPriceModalHandler}>
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">فی هر سفارش</p>
+                </div>
               </div>
-          </div>
-          <div className="layout-nav-setting-box-item">
-              <div className="layout-nav-setting-box-item-left">
-                  <div className="layout-nav-setting-box-item-left-plusbox">
-                  <FontAwesomeIcon icon={faPlus} className="layout-nav-setting-box-item-left-plus"/>
-                  </div>
-                  <div className="layout-nav-setting-box-item-left-menubox">
-                  <FontAwesomeIcon icon={faBars} className="layout-nav-setting-box-item-left-menu"/>
-                  </div>
-              </div>
-              <div className="layout-nav-setting-box-item-right">
-              <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
-                  <p className="layout-nav-setting-box-item-right-text">محل اصلی</p>
-              </div>
-          </div>
+              <Link to="/discountList" className="layout-nav-setting-box-item">
+                <div className="layout-nav-setting-box-item-left">
+                </div>
+                <div className="layout-nav-setting-box-item-right">
+                <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
+                    <p className="layout-nav-setting-box-item-right-text">کد تخفیف</p>
+                </div>
+              </Link>
             </TabPanel>
             <TabPanel value={value} index={4}>
               دسترسی ندارید
@@ -193,6 +225,12 @@ function SettingsPage() {
           </div>
 
         </PanelMain>
+
+        <WalletSettingModal
+         />
+
+        <WalletSettingModal />
+        </>
     )
 }
     
