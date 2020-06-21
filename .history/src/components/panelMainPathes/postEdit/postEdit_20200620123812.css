@@ -217,8 +217,9 @@
 .filepond--root {
     max-height: 400px !important;
     min-height: 76px !important;
-    margin-bottom: 30px !important;
-    width: 100% !important;
+    margin-bottom: 45px !important;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .MuiAutocomplete-noOptions,

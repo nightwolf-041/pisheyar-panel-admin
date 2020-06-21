@@ -82,8 +82,25 @@ class AdvertisementsList extends React.Component{
                     }
                 },
                 {
-                  field: "isShow",
-                  title: "قابلیت نمایش",
+                  field: "userFullName",
+                  title: "نام کاربر",
+                    options: {
+                        filter: true,
+                        sort: true
+                    }
+                },
+                {
+                  field: "viewCount",
+                  title: "تعداد بازدید",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "likeCount",
+                  title: "تعداد لایک",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -93,6 +110,15 @@ class AdvertisementsList extends React.Component{
                 {
                   field: "modifiedDate",
                   title: "تاریخ ویرایش",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "isShow",
+                  title: "قابلیت نمایش",
                   editable: 'never',
                     options: {
                         filter: false,

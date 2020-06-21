@@ -26,11 +26,11 @@ import Description from "@material-ui/icons/Description";
 import Search from "@material-ui/icons/Search";
 import ViewCarousel from "@material-ui/icons/ViewCarousel";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import Add from "@material-ui/icons/Add";
 import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn";
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import CreateAdvertisementModal from '../../UI/Modals/CreateAdvertisementModal'
 
 // import './postsList.css'
 
@@ -82,8 +82,25 @@ class AdvertisementsList extends React.Component{
                     }
                 },
                 {
-                  field: "isShow",
-                  title: "قابلیت نمایش",
+                  field: "userFullName",
+                  title: "نام کاربر",
+                    options: {
+                        filter: true,
+                        sort: true
+                    }
+                },
+                {
+                  field: "viewCount",
+                  title: "تعداد بازدید",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "likeCount",
+                  title: "تعداد لایک",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -93,6 +110,15 @@ class AdvertisementsList extends React.Component{
                 {
                   field: "modifiedDate",
                   title: "تاریخ ویرایش",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "isShow",
+                  title: "قابلیت نمایش",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -157,45 +183,6 @@ class AdvertisementsList extends React.Component{
       })
     }
 
-    reloadDataAfterCreate = () => {
-      this.setState({loading: true})
-
-        axiosConfig.get('/Advertisement/GetAll', {
-          headers: { Authorization: "Bearer " + this.props.token }
-        }).then(res => {
-            console.log(res);
-            this.setState({loading: false})
-
-            if(res.data.state === 1) {
-              let data = res.data.advertisements
-              data.map(d => {
-                if(d.isShow === true) {
-                  d.isShow = 'نمایش'
-                } else {
-                  d.isShow = 'عدم نمایش'
-                }
-                return d.isShow
-              })
-              this.setState({
-                  data: res.data.advertisements
-              })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
-              toast(res.data.message, {type: toast.TYPE.ERROR});
-            }
-
-        }).catch(err => {
-
-          this.setState({
-            loading: false,
-            errorMsg: err.message
-          })
-
-         this.errorOnCatch()
-        })
-    }
-
 
     render() {
         return (
@@ -254,7 +241,7 @@ class AdvertisementsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست تبلیغات"
+                        title="لیست پست های اسلایدر"
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -262,16 +249,15 @@ class AdvertisementsList extends React.Component{
                               icon: Description,
                               tooltip: 'مشاهده پست',
                               onClick: (event, rowData) => {
-                                // this.props.onSaveSinglePost(rowData.postGuid)
-                                // this.props.history.push('/singlePost' )
-                                // this.props.history.state = 'showSinglepost'
+                                this.props.onSaveSinglePost(rowData.postGuid)
+                                this.props.history.push('/singlePost' )
+                                this.props.history.state = 'showSinglepost'
                               }
                             },
                             {
-                              icon: Add,
-                              isFreeAction: true,
+                              icon: Plus,
                               tooltip: 'ساخت تبلیغ',
-                              onClick: () => {
+                              onClick: (event, rowData) => {
                                 this.setState({
                                   showCreateAdvertisementModal: true
                                 })
@@ -279,7 +265,29 @@ class AdvertisementsList extends React.Component{
                             },
                           ]}
                         editable={{
-
+                        // onRowUpdate: (newData, oldData) =>
+                        //     new Promise(resolve => {
+                        //     setTimeout(() => {
+                        //         resolve();
+                        //         if (oldData) {
+                        //         this.setState(prevState => {
+                        //             axiosConfig
+                        //             .patch("/Post/GetAll/" + oldData.chatroomId, {
+                        //                 title: newData.title
+                        //             }, {
+                        //                 headers: { Authorization: "Bearer " + this.props.token }
+                        //             })
+                        //             .then(({ data }) => {})
+                        //             .catch(function(error) {
+                        //                 console.log("error:update group", error);
+                        //             });
+                        //             const data = [...prevState.data];
+                        //             data[data.indexOf(oldData)] = newData;
+                        //             return { ...prevState, data };
+                        //         });
+                        //         }
+                        //     }, 600);
+                        //     }),
                         onRowDelete: oldData =>
                             
                           new Promise((resolve, reject) => {
@@ -318,8 +326,7 @@ class AdvertisementsList extends React.Component{
 
             <CreateAdvertisementModal
             showInfoModal={this.state.showCreateAdvertisementModal}
-            hideInfoModal={this.hideCreateAdvertisementModal}
-            reloadDataAfterCreate={this.reloadDataAfterCreate}
+            hideInfoModal={this.state.hideCreateAdvertisementModal}
             />
 
             <ToastContainer autoClose={4000}

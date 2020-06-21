@@ -1,7 +1,6 @@
 // this file is /list route Add modal ... its imported in PanelMain component and handle with its header 
 
 import React from 'react';
-import {connect} from 'react-redux'
 import axiosConfig from '../../../axiosConfigure/axiosConfig';
 import { makeStyles } from '@material-ui/core/styles';
 import {Modal, Button, CircularProgress } from '@material-ui/core';
@@ -149,12 +148,6 @@ function WalletSettingModal(props) {
       console.log(res);
     })
 
-    axiosConfig.get('/Setting/GetOrderRequestsPrice', {
-      headers: { Authorization: "Bearer " + props.token }
-    }).then(res => {
-      console.log(res);
-    })
-
   }, [])
 
   const renderHeelperText = () => {
@@ -273,10 +266,5 @@ function WalletSettingModal(props) {
   );
 }
 
-const mapState = state => {
-  return {
-    token: state.authReducer.token
-  }
-}
 
-export default connect(mapState)(WalletSettingModal);
+export default WalletSettingModal;

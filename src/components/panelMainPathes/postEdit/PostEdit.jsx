@@ -119,7 +119,7 @@ const styles = theme => ({
     marginTop: theme.spacing(3),
   },
   titleMarginTop: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(3),
   }
 });
 
@@ -166,9 +166,9 @@ const styles = theme => ({
    titleInputHandler = (e) => {
     // this.setState( {title: e.target.value})
     let oldPost = {...this.state.post}
-    let oldPostTitle = oldPost.postTitle
+    let oldPostTitle = oldPost.title
     oldPostTitle = e.target.value
-    oldPost.postTitle = oldPostTitle
+    oldPost.title = oldPostTitle
 
     this.setState({post: oldPost})
    }
@@ -176,9 +176,9 @@ const styles = theme => ({
    abstractInputHandler = (e) => {
     // this.setState( {abstract: e.target.value})
     let oldPost = {...this.state.post}
-    let oldPostAbstract = oldPost.postAbstract
+    let oldPostAbstract = oldPost.abstract
     oldPostAbstract = e.target.value
-    oldPost.postAbstract = oldPostAbstract
+    oldPost.abstract = oldPostAbstract
 
     this.setState({post: oldPost})
    }
@@ -360,8 +360,8 @@ const styles = theme => ({
 
      axiosConfig.post('/Post/Update', {
         postGuid: this.props.postGuid,
-        title: this.state.post.postTitle,
-        abstract: this.state.post.postAbstract,
+        title: this.state.post.title,
+        abstract: this.state.post.abstract,
         description: this.state.post.postDescription,
         isShow: this.state.checked,
         documentGuid: this.state.documentGuid.replace(/['"]+/g, ''),
@@ -581,7 +581,7 @@ const styles = theme => ({
           className={[classes.inputs, "inputsDir", classes.titleMarginTop].join(' ')}
           id="postTitle"
           size="small"
-          defaultValue={this.state.post.postTitle}
+          defaultValue={this.state.post.title}
           variant="outlined"
           onChange={(e) => this.titleInputHandler(e)}
           />
@@ -601,7 +601,7 @@ const styles = theme => ({
             label="توضیح مختصر"
             className={[classes.inputs, "inputsDir"].join(' ')}
             id="postAbstract"
-            defaultValue={this.state.post.postAbstract}
+            defaultValue={this.state.post.abstract}
             variant="outlined"
             onChange={(e) => this.abstractInputHandler(e)}
           />

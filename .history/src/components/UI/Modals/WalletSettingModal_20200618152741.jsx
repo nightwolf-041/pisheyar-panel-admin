@@ -149,12 +149,6 @@ function WalletSettingModal(props) {
       console.log(res);
     })
 
-    axiosConfig.get('/Setting/GetOrderRequestsPrice', {
-      headers: { Authorization: "Bearer " + props.token }
-    }).then(res => {
-      console.log(res);
-    })
-
   }, [])
 
   const renderHeelperText = () => {
@@ -273,10 +267,5 @@ function WalletSettingModal(props) {
   );
 }
 
-const mapState = state => {
-  return {
-    token: state.authReducer.token
-  }
-}
 
-export default connect(mapState)(WalletSettingModal);
+export default WalletSettingModal;

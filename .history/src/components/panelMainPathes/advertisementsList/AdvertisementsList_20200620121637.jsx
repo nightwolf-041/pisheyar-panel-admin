@@ -82,8 +82,25 @@ class AdvertisementsList extends React.Component{
                     }
                 },
                 {
-                  field: "isShow",
-                  title: "قابلیت نمایش",
+                  field: "userFullName",
+                  title: "نام کاربر",
+                    options: {
+                        filter: true,
+                        sort: true
+                    }
+                },
+                {
+                  field: "viewCount",
+                  title: "تعداد بازدید",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "likeCount",
+                  title: "تعداد لایک",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -93,6 +110,15 @@ class AdvertisementsList extends React.Component{
                 {
                   field: "modifiedDate",
                   title: "تاریخ ویرایش",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "isShow",
+                  title: "قابلیت نمایش",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -157,45 +183,6 @@ class AdvertisementsList extends React.Component{
       })
     }
 
-    reloadDataAfterCreate = () => {
-      this.setState({loading: true})
-
-        axiosConfig.get('/Advertisement/GetAll', {
-          headers: { Authorization: "Bearer " + this.props.token }
-        }).then(res => {
-            console.log(res);
-            this.setState({loading: false})
-
-            if(res.data.state === 1) {
-              let data = res.data.advertisements
-              data.map(d => {
-                if(d.isShow === true) {
-                  d.isShow = 'نمایش'
-                } else {
-                  d.isShow = 'عدم نمایش'
-                }
-                return d.isShow
-              })
-              this.setState({
-                  data: res.data.advertisements
-              })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
-              toast(res.data.message, {type: toast.TYPE.ERROR});
-            }
-
-        }).catch(err => {
-
-          this.setState({
-            loading: false,
-            errorMsg: err.message
-          })
-
-         this.errorOnCatch()
-        })
-    }
-
 
     render() {
         return (
@@ -254,7 +241,7 @@ class AdvertisementsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست تبلیغات"
+                        title="لیست پست های اسلایدر"
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -262,9 +249,9 @@ class AdvertisementsList extends React.Component{
                               icon: Description,
                               tooltip: 'مشاهده پست',
                               onClick: (event, rowData) => {
-                                // this.props.onSaveSinglePost(rowData.postGuid)
-                                // this.props.history.push('/singlePost' )
-                                // this.props.history.state = 'showSinglepost'
+                                this.props.onSaveSinglePost(rowData.postGuid)
+                                this.props.history.push('/singlePost' )
+                                this.props.history.state = 'showSinglepost'
                               }
                             },
                             {
@@ -319,7 +306,6 @@ class AdvertisementsList extends React.Component{
             <CreateAdvertisementModal
             showInfoModal={this.state.showCreateAdvertisementModal}
             hideInfoModal={this.hideCreateAdvertisementModal}
-            reloadDataAfterCreate={this.reloadDataAfterCreate}
             />
 
             <ToastContainer autoClose={4000}

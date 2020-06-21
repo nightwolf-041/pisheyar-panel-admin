@@ -155,7 +155,7 @@ function WalletSettingModal(props) {
       console.log(res);
     })
 
-  }, [])
+  }, [props.showWalletSettingModal])
 
   const renderHeelperText = () => {
     if(props.errorOnNaN === true){

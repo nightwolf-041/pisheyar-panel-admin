@@ -148,8 +148,8 @@ function WalletSettingModal(props) {
     }).then(res => {
       console.log(res);
     })
-
-    axiosConfig.get('/Setting/GetOrderRequestsPrice', {
+    
+    axiosConfig.get('/Setting/GetUsersInitialCredit', {
       headers: { Authorization: "Bearer " + props.token }
     }).then(res => {
       console.log(res);

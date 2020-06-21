@@ -77,65 +77,46 @@ function SettingsPage() {
 
   const [showInitialCreditModal, setShowInitialCreditModal] = React.useState(false);
   const [errorOnInitialCreditModal, setErrorOnInitialCreditModal] = React.useState(false);
-  const [errorOnNaNInitialCredit, setErrorOnNaNInitialCredit] = React.useState(false);
   const [initialCreditModalLoading, setInitialCreditModalLoading] = React.useState(false);
   
   const [showRequestsPriceModal, setShowRequestsPriceModal] = React.useState(false);
-  const [errorOnNaNRequestsPrice, setErrorOnNaNRequestsPrice] = React.useState(false);
-  const [errorOnRequestsPriceModal, setErrorOnRequestsPriceModal] = React.useState(false);
+  const [errorOnRequestsPriceModa, setErrorOnRequestsPriceModa] = React.useState(false);
   const [requestsPriceModaLoading, setRequestsPriceModaLoading] = React.useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  // let variable = "fullWidth"
-  // if(window.innerWidth < 1400) {
-  //     variable = "scrollable"
-  // }
+  let variable = "fullWidth"
+  if(window.innerWidth < 1400) {
+      variable = "scrollable"
+  }
 
   const showInitialCreditModalHandler = () => {
     setShowInitialCreditModal(true)
   }
   const hideInitialCreditModalHandler = () => {
     setShowInitialCreditModal(false)
-    setErrorOnInitialCreditModal(false)
-    setErrorOnNaNInitialCredit(false)
   }
 
 
   const showRequestsPriceModalHandler = () => {
     setShowRequestsPriceModal(true)
   }
-
   const hideRequestsPriceModalHandler = () => {
     setShowRequestsPriceModal(false)
-    setErrorOnRequestsPriceModal(false)
-      setErrorOnNaNRequestsPrice(false)
   }
-  
-  
+
   const changeInitialCredit = value => {
     let reg = /^\d+$/;
-    if(value === '' || value === null || value === undefined){
+    if(value === '' || value === null || value === undefined ){
       setErrorOnInitialCreditModal(true)
-    }else if((value !== '' || value !== null || value !== undefined) && !reg.test(value)) {
-      setErrorOnNaNInitialCredit(true)
-    }else{
-      setErrorOnInitialCreditModal(false)
-      setErrorOnNaNInitialCredit(false)
     }
   }
 
   const changeRequestsPrice = value => {
-    let reg = /^\d+$/;
     if(value === '' || value === null || value === undefined){
-      setErrorOnRequestsPriceModal(true)
-    }else if((value !== '' || value !== null || value !== undefined) && !reg.test(value)) {
-      setErrorOnNaNRequestsPrice(true)
-    }else{
-      setErrorOnRequestsPriceModal(false)
-      setErrorOnNaNRequestsPrice(false)
+      setErrorOnRequestsPriceModa(true)
     }
   }
 
@@ -150,7 +131,7 @@ function SettingsPage() {
                 // centered
                 value={value}
                 onChange={handleChange}
-                variant= "scrollable"
+                variant= {variable}
                 scrollButtons="on"
                 indicatorColor="primary"
                 textColor="primary"
@@ -188,7 +169,7 @@ function SettingsPage() {
                 </div>
                 <div className="layout-nav-setting-box-item-right">
                 <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
-                    <p className="layout-nav-setting-box-item-right-text">استان ها</p>
+                    <p className="layout-nav-setting-box-item-right-text">مقادیر اولیه</p>
                 </div>
               </Link>
             </TabPanel>
@@ -273,7 +254,6 @@ function SettingsPage() {
         forCredit={true}
         showWalletSettingModal={showInitialCreditModal}
         errorOnWalletSetting={errorOnInitialCreditModal}
-        errorOnNaN={errorOnNaNInitialCredit}
         WalletSettingLoading={initialCreditModalLoading}
         hideWalletSettingModal={hideInitialCreditModalHandler}
         changeInitialCredit={initialCreditInputValue => changeInitialCredit(initialCreditInputValue)}
@@ -281,10 +261,10 @@ function SettingsPage() {
 
         <WalletSettingModal
         showWalletSettingModal={showRequestsPriceModal}
-        errorOnWalletSetting={errorOnRequestsPriceModal}
-        errorOnNaN={errorOnNaNRequestsPrice}
+        errorOnWalletSetting={errorOnRequestsPriceModa}
         WalletSettingLoading={requestsPriceModaLoading}
         hideWalletSettingModal={hideRequestsPriceModalHandler}
+        requestsPriceInputChangeHandler={requestsPriceInputChangeHandler}
         changeRequestsPrice={requestsPriceInputValue => changeRequestsPrice(requestsPriceInputValue)}
         />
         </>

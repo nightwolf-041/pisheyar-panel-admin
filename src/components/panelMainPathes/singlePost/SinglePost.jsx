@@ -146,7 +146,7 @@ class SinglePost extends React.Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <div className="expandedpanel-details-keeper">
-                                {post.postTitle}
+                                {post.title}
                             </div>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -160,7 +160,7 @@ class SinglePost extends React.Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <div className="expandedpanel-details-keeper">
-                                {post.postAbstract}
+                                {post.abstract}
                             </div>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -174,7 +174,7 @@ class SinglePost extends React.Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <div className="expandedpanel-description-keeper">
-                                <div dangerouslySetInnerHTML={{ __html: post.postDescription }} />
+                                <div dangerouslySetInnerHTML={{ __html: post.description }} />
                             </div>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>

@@ -82,8 +82,25 @@ class AdvertisementsList extends React.Component{
                     }
                 },
                 {
-                  field: "isShow",
-                  title: "قابلیت نمایش",
+                  field: "userFullName",
+                  title: "نام کاربر",
+                    options: {
+                        filter: true,
+                        sort: true
+                    }
+                },
+                {
+                  field: "viewCount",
+                  title: "تعداد بازدید",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "likeCount",
+                  title: "تعداد لایک",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -93,6 +110,15 @@ class AdvertisementsList extends React.Component{
                 {
                   field: "modifiedDate",
                   title: "تاریخ ویرایش",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
+                  field: "isShow",
+                  title: "قابلیت نمایش",
                   editable: 'never',
                     options: {
                         filter: false,
@@ -254,7 +280,7 @@ class AdvertisementsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست تبلیغات"
+                        title="لیست پست های اسلایدر"
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -262,9 +288,9 @@ class AdvertisementsList extends React.Component{
                               icon: Description,
                               tooltip: 'مشاهده پست',
                               onClick: (event, rowData) => {
-                                // this.props.onSaveSinglePost(rowData.postGuid)
-                                // this.props.history.push('/singlePost' )
-                                // this.props.history.state = 'showSinglepost'
+                                this.props.onSaveSinglePost(rowData.postGuid)
+                                this.props.history.push('/singlePost' )
+                                this.props.history.state = 'showSinglepost'
                               }
                             },
                             {

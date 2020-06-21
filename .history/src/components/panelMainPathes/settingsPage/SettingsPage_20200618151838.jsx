@@ -89,53 +89,44 @@ function SettingsPage() {
     setValue(newValue);
   };
 
-  // let variable = "fullWidth"
-  // if(window.innerWidth < 1400) {
-  //     variable = "scrollable"
-  // }
+  let variable = "fullWidth"
+  if(window.innerWidth < 1400) {
+      variable = "scrollable"
+  }
 
   const showInitialCreditModalHandler = () => {
     setShowInitialCreditModal(true)
   }
   const hideInitialCreditModalHandler = () => {
     setShowInitialCreditModal(false)
-    setErrorOnInitialCreditModal(false)
-    setErrorOnNaNInitialCredit(false)
   }
 
 
   const showRequestsPriceModalHandler = () => {
     setShowRequestsPriceModal(true)
   }
-
   const hideRequestsPriceModalHandler = () => {
     setShowRequestsPriceModal(false)
-    setErrorOnRequestsPriceModal(false)
-      setErrorOnNaNRequestsPrice(false)
   }
   
   
   const changeInitialCredit = value => {
     let reg = /^\d+$/;
-    if(value === '' || value === null || value === undefined){
+    if(value === '' || value === null || value === undefined || !reg.test(value)){
       setErrorOnInitialCreditModal(true)
-    }else if((value !== '' || value !== null || value !== undefined) && !reg.test(value)) {
+    }
+    if(!reg.test(value)) {
       setErrorOnNaNInitialCredit(true)
-    }else{
-      setErrorOnInitialCreditModal(false)
-      setErrorOnNaNInitialCredit(false)
     }
   }
 
   const changeRequestsPrice = value => {
     let reg = /^\d+$/;
-    if(value === '' || value === null || value === undefined){
+    if(value === '' || value === null || value === undefined || !reg.test(value)){
       setErrorOnRequestsPriceModal(true)
-    }else if((value !== '' || value !== null || value !== undefined) && !reg.test(value)) {
+    }
+    if(!reg.test(value)) {
       setErrorOnNaNRequestsPrice(true)
-    }else{
-      setErrorOnRequestsPriceModal(false)
-      setErrorOnNaNRequestsPrice(false)
     }
   }
 
@@ -150,7 +141,7 @@ function SettingsPage() {
                 // centered
                 value={value}
                 onChange={handleChange}
-                variant= "scrollable"
+                variant= {variable}
                 scrollButtons="on"
                 indicatorColor="primary"
                 textColor="primary"
@@ -188,7 +179,7 @@ function SettingsPage() {
                 </div>
                 <div className="layout-nav-setting-box-item-right">
                 <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
-                    <p className="layout-nav-setting-box-item-right-text">استان ها</p>
+                    <p className="layout-nav-setting-box-item-right-text">مقادیر اولیه</p>
                 </div>
               </Link>
             </TabPanel>

@@ -64,3 +64,10 @@
     text-align: right !important;
     direction: rtl !important;
 }
+
+/* .filepond--root {
+    max-height: 400px !important;
+    min-height: 76px !important;
+    margin-bottom: 30px !important;
+    width: 100% !important;
+} */

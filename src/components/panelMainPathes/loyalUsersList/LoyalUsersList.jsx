@@ -115,19 +115,18 @@ class LoyalUsersList extends React.Component {
             console.log(res.data.loyalContractors);
             this.setState({
                 loading: false,
-                // data: res.data.payments
             })
 
-            // if(res.data.state === 1) {
+            if(res.data.state === 1) {
                 this.setState({
                     data: res.data.loyalContractors
                 })
-            // }else{
-            //      this.setState({
-            //         data: []
-            //     })
-            //     toast(res.data.message, {type: toast.TYPE.ERROR});
-            // }
+            }else{
+                this.setState({
+                    data: []
+                })
+                toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
 
         }).catch(err => {
             console.log(err);

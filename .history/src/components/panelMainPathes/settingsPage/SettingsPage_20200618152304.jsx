@@ -89,25 +89,25 @@ function SettingsPage() {
     setValue(newValue);
   };
 
-  // let variable = "fullWidth"
-  // if(window.innerWidth < 1400) {
-  //     variable = "scrollable"
-  // }
+  let variable = "fullWidth"
+  if(window.innerWidth < 1400) {
+      variable = "scrollable"
+  }
 
   const showInitialCreditModalHandler = () => {
     setShowInitialCreditModal(true)
   }
   const hideInitialCreditModalHandler = () => {
     setShowInitialCreditModal(false)
-    setErrorOnInitialCreditModal(false)
-    setErrorOnNaNInitialCredit(false)
   }
 
 
   const showRequestsPriceModalHandler = () => {
     setShowRequestsPriceModal(true)
+    setErrorOnInitialCreditModal(false)
+    setErrorOnNaNInitialCredit(false)
   }
-
+  
   const hideRequestsPriceModalHandler = () => {
     setShowRequestsPriceModal(false)
     setErrorOnRequestsPriceModal(false)
@@ -150,7 +150,7 @@ function SettingsPage() {
                 // centered
                 value={value}
                 onChange={handleChange}
-                variant= "scrollable"
+                variant= {variable}
                 scrollButtons="on"
                 indicatorColor="primary"
                 textColor="primary"
@@ -188,7 +188,7 @@ function SettingsPage() {
                 </div>
                 <div className="layout-nav-setting-box-item-right">
                 <FontAwesomeIcon icon={faCog} className="layout-nav-setting-box-item-right-icon"/>
-                    <p className="layout-nav-setting-box-item-right-text">استان ها</p>
+                    <p className="layout-nav-setting-box-item-right-text">مقادیر اولیه</p>
                 </div>
               </Link>
             </TabPanel>
