@@ -163,29 +163,36 @@ class PermissionsList extends React.Component{
         axiosConfig.get('/Account/GetAllAdmins', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
-            console.log(res.data);
+            console.log(res);
             this.setState({
                 loading: false,
-                data: res.data.admins
+                // data: res.data.admins
             })
 
-            let data = res.data.admins
-            data.map(d => {
-              if(d.isActive === true) {
-                d.isActive = 'فعال'
-              } else {
-                d.isActive = 'غیر فعال'
-              }
-              if(d.isRegister === true) {
-                d.isRegister = 'موفق'
-              } else {
-                d.isRegister = 'ناموفق'
-              }
-              return d.isActive, d.isRegister
-            })
-            this.setState({
-                data: res.data.admins
-            })
+            if(res.data.state === 1) {
+              let data = res.data.admins
+              data.map(d => {
+                if(d.isActive === true) {
+                  d.isActive = 'فعال'
+                } else {
+                  d.isActive = 'غیر فعال'
+                }
+                if(d.isRegister === true) {
+                  d.isRegister = 'موفق'
+                } else {
+                  d.isRegister = 'ناموفق'
+                }
+                return d.isActive, d.isRegister
+              })
+              this.setState({
+                  data: res.data.admins
+              })
+            }else{
+              this.setState({
+                data: []
+              })
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
 
         }).catch(err => {
             console.log(err);

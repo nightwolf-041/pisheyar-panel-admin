@@ -62,7 +62,11 @@ function OrderRequestChats(props) {
                     }
                     return null
                 })
-                : null}
+                : 
+                <div className="text-center w-100">
+                    موردی یافت نشد
+                </div>
+                }
             </div>
         </PanelMain>
     )

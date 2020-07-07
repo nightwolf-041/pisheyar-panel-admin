@@ -233,7 +233,7 @@ class OrderRequestList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست سفارش ها"
+                        title="لیست درخواست ها"
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[

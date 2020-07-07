@@ -10,7 +10,7 @@ import classes from './messageBox.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faReply, faBookReader } from '@fortawesome/free-solid-svg-icons'
 
-import profileLogo from '../../assets/images/male.png'
+import profioleLogo from '../../assets/images/male.png'
 
 const MessageBox = (props) => {
     const messageBoxRef = React.useRef()

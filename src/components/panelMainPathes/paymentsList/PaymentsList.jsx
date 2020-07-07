@@ -138,29 +138,36 @@ class PaymentsList extends React.Component{
         axiosConfig.get('/Payment/GetAll', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
-            console.log(res.data.payments);
+            console.log(res.data);
             this.setState({
                 loading: false,
                 // data: res.data.payments
             })
 
-            let data = res.data.payments
-            data.map(d => {
-              if(d.trackingToken === null) {
-                d.trackingToken = 'ثبت نشده است'
-              } else {
-                d.trackingToken = d.trackingToken
-              }
-              if(d.isSuccessful === true) {
-                d.isSuccessful = 'موفق'
-              } else {
-                d.isSuccessful = 'ناموفق'
-              }
-              return d.trackingToken, d.isSuccessful
-            })
-            this.setState({
-                data: res.data.payments
-            })
+            if(res.data.state === 1) {
+              let data = res.data.payments
+              data.map(d => {
+                if(d.trackingToken === null) {
+                  d.trackingToken = 'ثبت نشده است'
+                } else {
+                  d.trackingToken = d.trackingToken
+                }
+                if(d.isSuccessful === true) {
+                  d.isSuccessful = 'موفق'
+                } else {
+                  d.isSuccessful = 'ناموفق'
+                }
+                return d.trackingToken, d.isSuccessful
+              })
+              this.setState({
+                  data: res.data.payments
+              })
+            }else{
+              this.setState({
+                data: []
+              })
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
 
         }).catch(err => {
             console.log(err);

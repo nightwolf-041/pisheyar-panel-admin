@@ -97,7 +97,7 @@ const styles = makeStyles(theme => ({
     boxShadow: 'none',
     width: '90%',
     maxWidth: '1000px',
-    height: '95vh',
+    height: 'auto',
     // maxHeight: '95vh',
     padding: theme.spacing(0, 0, 3),
     borderRadius: '4px',
@@ -106,7 +106,8 @@ const styles = makeStyles(theme => ({
   },
   paperInside: {
     width: '100%',
-    height: '100%',
+    height: 'auto',
+    maxHeight: '90vh',
     padding: theme.spacing(3, 3, 3),
   },
   closeIocn: {
@@ -363,7 +364,6 @@ function CreateAdvertisementModal(props) {
 
                 <TextareaAutosize
                 dir="rtl"
-                error={true}
                 style={{direction: 'rtl'}}
                 className={classes.textareaAutosize}
                 aria-label="توضیحات تبلیغ"

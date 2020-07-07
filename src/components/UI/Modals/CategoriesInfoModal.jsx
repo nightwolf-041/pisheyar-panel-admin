@@ -274,12 +274,15 @@ function CategoriesInfoModal(props) {
   }
   
   const [info, setInfo] = React.useState(null);
-
+  
+  
   const [documentGuidForCover, setDocumentGuidForCover] = React.useState('');
+  const [documentGuidForSecondPage, setDocumentGuidForSecondPage] = React.useState('');
   const [documentGuidForActiveIcon, setDocumentGuidForActiveIcon] = React.useState('');
   const [documentGuidForInActive, setDocumentGuidForInActive] = React.useState('');
   const [documentGuidForQuadMenu, setDocumentGuidForQuadMenu] = React.useState('');
   const [fileForCover, setFileForCover] = React.useState();
+  const [fileForSecondPage, setFileForSecondPage] = React.useState();
   const [fileForActiveIcon, setFileForActiveIcon] = React.useState();
   const [fileForInActive, setFileForInActive] = React.useState();
   const [fileForQuadMenu, setFileForQuadMenu] = React.useState();
@@ -305,6 +308,7 @@ function CategoriesInfoModal(props) {
   let pond2 = React.useRef()
   let pond3 = React.useRef()
   let pond4 = React.useRef()
+  let pond5 = React.useRef()
 
   React.useEffect(() => {
     // doSomething()
@@ -450,7 +454,9 @@ function CategoriesInfoModal(props) {
       setloadingInfoBoxTags(false)
       setInfoBoxTags(res.data.tags)
     }).catch(err => {
-      toast('خطا در بارگیری تگ های دسته بندی', {type: toast.TYPE.ERROR});
+      if(props.showInfoModal){
+        toast('خطا در بارگیری تگ های دسته بندی', {type: toast.TYPE.ERROR});
+      }
       setloadingInfoBoxTags(false)
       setInfoBoxTags([])
     })
@@ -558,6 +564,7 @@ const categoriesSetDetailsHandler = () => {
     abstract: infoBoxAbstract,
     description: infoBoxDescription,
     coverDocumentGuid: documentGuidForCover.replace(/['"]+/g, ''),
+    secondPageCoverDocumentGuid: documentGuidForSecondPage.replace(/['"]+/g, ''),
     activeIconDocumentGuid: documentGuidForActiveIcon.replace(/['"]+/g, ''),
     inactiveIconDocumentGuid: documentGuidForInActive.replace(/['"]+/g, ''),
     quadMenuDocumentGuid: documentGuidForQuadMenu.replace(/['"]+/g, ''),
@@ -703,10 +710,75 @@ console.log(documentGuidForInActive);
               </FilePond>
 
               <div className="infoBoxFilepondLabel">
-                آیکون فعال دسته بندی
+                عکس کاور صفحه دوم
               </div>
 
               <FilePond ref={ref => pond2 = ref}
+                files={fileForSecondPage}
+                // {...ckFileProp}
+                allowMultiple={false}
+                maxFiles={1}
+                checkValidity={true}
+                allowFilePoster={true}
+                allowFileSizeValidation={true}
+                maxFileSize='7MB'
+                labelMaxFileSizeExceeded="حجم فایل زیاد است"
+                labelMaxFileSize="حداکثر حجم مجاز: {filesize}"
+                allowImagePreview={true}
+                imagePreviewMaxHeight={300}
+                allowImageValidateSize={true}
+                imageValidateSizeMinWidth={720}
+                imageValidateSizeMaxWidth={2400}
+                imageValidateSizeMinHeight={480}
+                imageValidateSizeMaxHeight={1400}
+                imageValidateSizeLabelFormatError="نوع عکس مجاز نیست"
+                imageValidateSizeLabelImageSizeTooSmall="عکس بسیار کوچک است"
+                imageValidateSizeLabelImageSizeTooBig="عکس بسیار بزرگ است"
+                imageValidateSizeLabelExpectedMinSize="حداقل سایز عکس: {minWidth} × {minHeight}"
+                imageValidateSizeLabelExpectedMaxSize="حداکثر سایز عکس: {maxWidth} × {maxHeight}"
+                allowFileTypeValidation={true}
+                acceptedFileTypes={['image/png', 'image/jpg', 'image/jpeg']}
+                labelFileTypeNotAllowed="فایل انتخابی مجاز نیست"
+                server = {{
+                  url: 'http://185.94.97.164/api/Uploader',
+                  process: '/FilepondProcess',
+                  revert: {
+                    url: '/FilepondRevert',
+                    method: 'POST'
+                  }
+                }}
+                onprocessfile={(error, file) => setDocumentGuidForSecondPage(file.serverId)}
+                onupdatefiles={(fileItems) => {
+                    setFileForSecondPage(fileItems.map(fileItem => fileItem.file))
+                }}
+                labelIdle="عکس را اینجا رها یا کلیک کنید"
+                labelInvalidField="فایل معنبر نیست"
+                labelFileProcessing="درحال بارگذاری"
+                labelFileProcessingError="خطا در بارگذاری"
+                labelFileLoading="درحال بارگیری"
+                labelFileLoadError="خطا در بارگیری"
+                labelFileProcessingComplete="بارگذاری موفق"
+                labelFileProcessingAborted="لغو بارگذاری"
+                labelFileProcessingRevertError="خطا در بازگشتن"
+                labelFileRemoveError="خطا در حذف"
+
+                labelTapToCancel="لغو"
+                labelTapToRetry="تلاش مجدد"
+                labelTapToUndo="بازگردانی"
+                labelButtonRemoveItem="حذف"
+                labelButtonRetryItemLoad="تلاش مجدد"
+                labelButtonAbortItemProcessing="لغو"
+                labelButtonUndoItemProcessing="بازنشانی"
+                labelButtonRetryItemProcessing="تلاش مجدد"
+                labelButtonProcessItem="بارگذاری"
+                >
+              </FilePond>
+
+              <div className="infoBoxFilepondLabel">
+                آیکون فعال دسته بندی
+              </div>
+
+              <FilePond ref={ref => pond3 = ref}
                 files={fileForActiveIcon}
                 // {...ckFileProp2}
                 allowMultiple={false}
@@ -771,7 +843,7 @@ console.log(documentGuidForInActive);
                 آیکون غیر فعال دسته بندی
               </div>
 
-              <FilePond ref={ref => pond3 = ref}
+              <FilePond ref={ref => pond4 = ref}
                 files={fileForInActive}
                 // {...ckFileProp3}
                 allowMultiple={false}
@@ -837,7 +909,7 @@ console.log(documentGuidForInActive);
                 عکس منوی غلطکی
               </div>
 
-              <FilePond ref={ref => pond4 = ref}
+              <FilePond ref={ref => pond5 = ref}
                 files={fileForQuadMenu}
                 // {...ckFileProp4}
                 allowMultiple={false}
@@ -897,6 +969,8 @@ console.log(documentGuidForInActive);
                 labelButtonProcessItem="بارگذاری"
                 >
               </FilePond>
+
+              
 
               <Divider id="transition-modal-divider" className={classes.margin}/>
 

@@ -185,9 +185,9 @@ const styles = theme => ({
 
    editorChangeHanlder = (data) => {
     let oldPost = {...this.state.post}
-    let oldPostDescription = oldPost.postDescription
+    let oldPostDescription = oldPost.description
     oldPostDescription = data
-    oldPost.postDescription = oldPostDescription
+    oldPost.description = oldPostDescription
 
     this.setState({post: oldPost})
    }
@@ -219,6 +219,8 @@ const styles = theme => ({
           headers: { Authorization: "Bearer " + this.props.token }
       }).then(res => {
 
+        console.log(res.data);
+
         //destractring post objects and make defImage array
         let post = res.data.post
         let docObj = {...post.document}
@@ -239,6 +241,7 @@ const styles = theme => ({
 
         let defCatgory = {...post.category}
         let defTags = [...post.tags]
+        console.log(defCatgory);
 
         let dafaultTrimed = [...defTags.map(def => def.name)]
 
@@ -246,7 +249,7 @@ const styles = theme => ({
             loading: false,
             post: res.data.post,
             files: defaultImage,
-            checked: res.data.post.postIsShow,
+            checked: res.data.post.isShow,
             postDefaultTags: dafaultTrimed,
             trimedValues: dafaultTrimed,
             categoriesDefaultNames: defCatgory
@@ -362,7 +365,7 @@ const styles = theme => ({
         postGuid: this.props.postGuid,
         title: this.state.post.title,
         abstract: this.state.post.abstract,
-        description: this.state.post.postDescription,
+        description: this.state.post.description,
         isShow: this.state.checked,
         documentGuid: this.state.documentGuid.replace(/['"]+/g, ''),
         categories: finalValue,
@@ -641,7 +644,7 @@ const styles = theme => ({
     
     
               <CKEditor
-                data={this.state.post.postDescription}
+                data={this.state.post.description}
                 editor={ClassicEditor}
                 config={
                   {

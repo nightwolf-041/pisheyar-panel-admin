@@ -43,7 +43,7 @@ const BellBox = (props) => {
                 <div className={classes.bellBoxBodyNotification}>
                     <div className={classes.bellBoxBodyNotificationDesc}>
                         <p className={classes.bellBoxBodyNotificationDescTitle}>
-                            آپدیت شماره دوم اعمال شد
+                            تو بهترینی روزبه شامخی
                         </p>
                         <div className={classes.bellBoxBodyNotificationDescDate}>
                             <p className={classes.bellBoxbodyNotificationDescDateText}>pm 12:05</p>
@@ -63,7 +63,7 @@ const BellBox = (props) => {
                 <div className={classes.bellBoxBodyNotification}>
                     <div className={classes.bellBoxBodyNotificationDesc}>
                         <p className={classes.bellBoxBodyNotificationDescTitle}>
-                            آپدیت شماره دوم اعمال شد
+                            تو بهترینی روزبه شامخی
                         </p>
                         <div className={classes.bellBoxBodyNotificationDescDate}>
                             <p className={classes.bellBoxbodyNotificationDescDateText}>pm 12:05</p>
@@ -83,7 +83,7 @@ const BellBox = (props) => {
                 <div className={classes.bellBoxBodyNotification}>
                     <div className={classes.bellBoxBodyNotificationDesc}>
                         <p className={classes.bellBoxBodyNotificationDescTitle}>
-                            آپدیت شماره دوم اعمال شد
+                            تو بهترینی روزبه شامخی
                         </p>
                         <div className={classes.bellBoxBodyNotificationDescDate}>
                             <p className={classes.bellBoxbodyNotificationDescDateText}>pm 12:05</p>
@@ -103,7 +103,7 @@ const BellBox = (props) => {
                 <div className={classes.bellBoxBodyNotification}>
                     <div className={classes.bellBoxBodyNotificationDesc}>
                         <p className={classes.bellBoxBodyNotificationDescTitle}>
-                            آپدیت شماره دوم اعمال شد
+                            تو بهترینی روزبه شامخی
                         </p>
                         <div className={classes.bellBoxBodyNotificationDescDate}>
                             <p className={classes.bellBoxbodyNotificationDescDateText}>pm 12:05</p>
@@ -123,7 +123,7 @@ const BellBox = (props) => {
                 <div className={classes.bellBoxBodyNotification}>
                     <div className={classes.bellBoxBodyNotificationDesc}>
                         <p className={classes.bellBoxBodyNotificationDescTitle}>
-                            آپدیت شماره دوم اعمال شد
+                            تو بهترینی روزبه شامخی
                         </p>
                         <div className={classes.bellBoxBodyNotificationDescDate}>
                             <p className={classes.bellBoxbodyNotificationDescDateText}>pm 12:05</p>
