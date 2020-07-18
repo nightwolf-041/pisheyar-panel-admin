@@ -58,14 +58,14 @@ let persistor = persistStore(store)
 //     store.getState();
 // });
 
-// axiosConfig.interceptors.response.use(response => {
-//   return response;
-// }, error => {
-//   if (error.response.status === 401) {
-//     store.dispatch(authActionCreators.loggedOut())
-//   }
-//   return error;
-// });
+axiosConfig.interceptors.response.use(response => {
+  return response;
+}, error => {
+  if (error.response.status === 401) {
+    store.dispatch(authActionCreators.loggedOut())
+  }
+  return error;
+});
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const theme = createMuiTheme({

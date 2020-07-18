@@ -69,6 +69,8 @@ class PostsList extends React.Component{
           loading: false,
           errorMsg: null,
           
+          slideOrder: '',
+
           openChangeSliderDialog: false,
           changeInSliderLoading: false,
           changeInSliderData: null,
@@ -115,6 +117,15 @@ class PostsList extends React.Component{
                     }
                 },
                 {
+                  field: "isSuggested",
+                  title: "منتخب سردبیر",
+                  editable: 'never',
+                    options: {
+                        filter: false,
+                        sort: false
+                    }
+                },
+                {
                   field: "modifiedDate",
                   title: "تاریخ ویرایش",
                   editable: 'never',
@@ -151,10 +162,10 @@ class PostsList extends React.Component{
         axiosConfig.get('/Post/GetAll', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
-            console.log(res);
+            console.log(res.data.posts);
             this.setState({loading: false})
 
-            if(res.data.state === 1) {
+            if(res.data.posts !== null && res.data.state === 1) {
               let data = res.data.posts
               data.map(d => {
                 if(d.isShow === true) {
@@ -162,24 +173,25 @@ class PostsList extends React.Component{
                 } else {
                   d.isShow = 'عدم نمایش'
                 }
-                return d.isShow
+                if(d.isSuggested === true) {
+                  d.isSuggested = 'منتخب'
+                } else {
+                  d.isSuggested = 'غیر منتخب'
+                }
+                return d.isShow, d.isSuggested
               })
               this.setState({
                   data: res.data.posts
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
         }).catch(err => {
-
           this.setState({
             loading: false,
             errorMsg: err.message
           })
-
          this.errorOnCatch()
         })
     }
@@ -213,43 +225,42 @@ class PostsList extends React.Component{
           axiosConfig.get('/Post/GetAll', {
             headers: { Authorization: "Bearer " + this.props.token }
           }).then(res => {
-            console.log(res);
               this.setState({loading: false})
   
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openChangeSliderDialog: false,
-                changeInSliderLoading: false
-              })
+              if(res.data.posts !== null && res.data.state === 1) {
+                let data = res.data.posts
+                data.map(d => {
+                  if(d.postIsShow === true) {
+                    d.postIsShow = 'نمایش'
+                  } else {
+                    d.postIsShow = 'عدم نمایش'
+                  }
+                  return d.postIsShow
+                })
+                this.setState({
+                  data: res.data.posts,
+                  openChangeSliderDialog: false,
+                  changeInSliderLoading: false
+                })
+              }else{
+                toast(res.data.message, {type: toast.TYPE.ERROR});
+              }
   
           }).catch(err => {
-  
             this.setState({
               loading: false,
               errorMsg: err.message,
               changeInSliderLoading: false
             })
-  
            this.errorOnCatch()
           })
-        }
 
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
+        }else{
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
           this.setState({
             changeInSliderLoading: false
           })
         }
-
       }).catch(error => {
         toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
         this.setState({
@@ -275,23 +286,26 @@ class PostsList extends React.Component{
           axiosConfig.get('/Post/GetAll', {
             headers: { Authorization: "Bearer " + this.props.token }
           }).then(res => {
-            console.log(res);
               this.setState({loading: false})
   
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openChangeSliderDialog: false,
-                changeInSliderLoading: false
-              })
+              if(res.data.posts !== null && res.data.state === 1) {
+                let data = res.data.posts
+                data.map(d => {
+                  if(d.postIsShow === true) {
+                    d.postIsShow = 'نمایش'
+                  } else {
+                    d.postIsShow = 'عدم نمایش'
+                  }
+                  return d.postIsShow
+                })
+                this.setState({
+                  data: res.data.posts,
+                  openChangeSliderDialog: false,
+                  changeInSliderLoading: false
+                })
+              }else{
+                toast(res.data.message, {type: toast.TYPE.ERROR});
+              }
   
           }).catch(err => {
   
@@ -303,15 +317,13 @@ class PostsList extends React.Component{
   
            this.errorOnCatch()
           })
-        }
 
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
+        }else{
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
           this.setState({
             changeInSliderLoading: false
           })
         }
-
       }).catch(error => {
         toast('خطا در تغییر وضعیت اسلایدر', {type: toast.TYPE.ERROR});
         this.setState({
@@ -338,23 +350,26 @@ class PostsList extends React.Component{
           axiosConfig.get('/Post/GetAll', {
             headers: { Authorization: "Bearer " + this.props.token }
           }).then(res => {
-            console.log(res);
               this.setState({loading: false})
   
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openSuggestionDialog: false,
-                suggestionDialogLoading: false
-              })
+              if(res.data.posts !== null && res.data.state === 1) {
+                let data = res.data.posts
+                data.map(d => {
+                  if(d.postIsShow === true) {
+                    d.postIsShow = 'نمایش'
+                  } else {
+                    d.postIsShow = 'عدم نمایش'
+                  }
+                  return d.postIsShow
+                })
+                this.setState({
+                  data: res.data.posts,
+                  openChangeSliderDialog: false,
+                  changeInSliderLoading: false
+                })
+              }else{
+                toast(res.data.message, {type: toast.TYPE.ERROR});
+              }
   
           }).catch(err => {
   
@@ -366,15 +381,13 @@ class PostsList extends React.Component{
   
            this.errorOnCatch()
           })
-        }
 
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
+        }else{
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
           this.setState({
             suggestionDialogLoading: false
           })
         }
-
       }).catch(error => {
         toast('خطا در تغییر منتخبین سردبیر', {type: toast.TYPE.ERROR});
         this.setState({
@@ -401,23 +414,26 @@ class PostsList extends React.Component{
           axiosConfig.get('/Post/GetAll', {
             headers: { Authorization: "Bearer " + this.props.token }
           }).then(res => {
-              console.log(res);
               this.setState({loading: false})
   
-              let data = res.data.posts
-              data.map(d => {
-                if(d.postIsShow === true) {
-                  d.postIsShow = 'نمایش'
-                } else {
-                  d.postIsShow = 'عدم نمایش'
-                }
-                return d.postIsShow
-              })
-              this.setState({
-                data: res.data.posts,
-                openSuggestionDialog: false,
-                suggestionDialogLoading: false
-              })
+              if(res.data.posts !== null && res.data.state === 1) {
+                let data = res.data.posts
+                data.map(d => {
+                  if(d.postIsShow === true) {
+                    d.postIsShow = 'نمایش'
+                  } else {
+                    d.postIsShow = 'عدم نمایش'
+                  }
+                  return d.postIsShow
+                })
+                this.setState({
+                  data: res.data.posts,
+                  openChangeSliderDialog: false,
+                  changeInSliderLoading: false
+                })
+              }else{
+                toast(res.data.message, {type: toast.TYPE.ERROR});
+              }
   
           }).catch(err => {
   
@@ -429,15 +445,13 @@ class PostsList extends React.Component{
   
            this.errorOnCatch()
           })
-        }
 
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
+        }else{
           toast(firstRes.data.message, {type: toast.TYPE.ERROR});
           this.setState({
             suggestionDialogLoading: false
           })
         }
-
       }).catch(error => {
         toast('خطا در تغییر منتخبین سردبیر', {type: toast.TYPE.ERROR});
         this.setState({
@@ -446,6 +460,10 @@ class PostsList extends React.Component{
       })
     }
 
+    slideOrderChange = e => {
+      console.log(e.target.value);
+      this.setState({slideOrder: e.target.value})
+    }
 
     render() {
         return (
@@ -504,7 +522,7 @@ class PostsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست پست ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -583,7 +601,7 @@ class PostsList extends React.Component{
                                 })
                               } else{
                                 reject()
-                                toast('خطا در حذف پست', {type: toast.TYPE.ERROR});
+                                toast(res.data.message, {type: toast.TYPE.ERROR});
                               }
 
                             }).catch(err => {
@@ -601,6 +619,8 @@ class PostsList extends React.Component{
             <ChangeInSliderDialog
             openDialog={this.state.openChangeSliderDialog}
             closeDialogHandler={this.closeInSliderDialogHandler}
+            slideOrder={this.state.slideOrder}
+            slideOrderChange={e => this.slideOrderChange(e)}
             changeInSliderLoading={this.state.changeInSliderLoading}
             chekoutOfSliderHandler={this.chekoutOfSliderHandler}
             addToSliderHandler={this.addToSliderHandler}

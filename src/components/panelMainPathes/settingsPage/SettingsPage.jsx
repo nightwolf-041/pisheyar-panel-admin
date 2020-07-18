@@ -148,6 +148,7 @@ function SettingsPage() {
             <AppBar position="static" color="default">
               <Tabs
                 // centered
+                styles={{zIndex: 50}}
                 value={value}
                 onChange={handleChange}
                 variant= "scrollable"

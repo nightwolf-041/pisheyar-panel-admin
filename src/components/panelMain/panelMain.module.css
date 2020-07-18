@@ -92,7 +92,7 @@
 .mainSectionHeaderTitle {
     color: #1d1d1d;
     text-align: right;
-    padding-top: 23px;
+    padding-top: 13px;
 }
 
 .mainSectionHeaderSubtitle {
@@ -100,6 +100,10 @@
     font-size: 12px;
     text-align: right;
     margin-top: -8px;
+}
+
+.mainSectionHeaderIconLink{
+    color: #444444
 }
 
 .mainSectionHeaderIcons {

@@ -104,22 +104,15 @@ class ProvincesList extends React.Component{
               this.setState({
                   data: res.data.provinces
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
-              this.setState({
-                data: []
-              })
             }
 
         }).catch(err => {
-
           this.setState({
             loading: false,
             errorMsg: err.message
           })
-
          this.errorOnCatch()
         })
     }
@@ -182,7 +175,7 @@ class ProvincesList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست استان ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -248,7 +241,7 @@ class ProvincesList extends React.Component{
                                   })
                                 } else{
                                   reject()
-                                  toast('خطا در حذف کد', {type: toast.TYPE.ERROR});
+                                  toast(res.data.message, {type: toast.TYPE.ERROR});
                                 }
   
                               }).catch(err => {

@@ -176,37 +176,37 @@ class ClientsList extends React.Component{
             console.log(res.data);
             this.setState({
                 loading: false,
-                data: res.data.clients
             })
 
-            let data = res.data.clients
-            data.map(d => {
-              if(d.isActive === true) {
-                d.isActive = 'فعال'
-              } else {
-                d.isActive = 'غیر فعال'
-              }
-              if(d.isRegister === true) {
-                d.isRegister = 'موفق'
-              } else {
-                d.isRegister = 'ناموفق'
-              }
-              return d.isActive, d.isRegister
-            })
-            this.setState({
-                data: res.data.clients
-            })
+            if(res.data.clients !== null && res.data.state === 1) {
+              let data = res.data.clients
+              data.map(d => {
+                if(d.isActive === true) {
+                  d.isActive = 'فعال'
+                } else {
+                  d.isActive = 'غیر فعال'
+                }
+                if(d.isRegister === true) {
+                  d.isRegister = 'موفق'
+                } else {
+                  d.isRegister = 'ناموفق'
+                }
+                return d.isActive, d.isRegister
+              })
+              this.setState({
+                  data: res.data.clients
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
+            
 
         }).catch(err => {
-            console.log(err);
             this.errorOnCatch()
-
             this.setState({
                 loading: false,
                 errorMsg: err.message
             })
-
-        //  this.errorOnCatch()
         })
     }
 
@@ -230,21 +230,16 @@ class ClientsList extends React.Component{
         console.log(firstRes);
         if(firstRes.data.state === 1) {
           toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-        }
-
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
-          toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-        }
 
         axiosConfig.get('/Account/GetAllClients', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
             console.log(res.data);
             this.setState({
-              loading: false,
-              data: res.data.clients
+              loading: false
             })
 
+            if(res.data.clients !== null && res.data.state === 1) {
             let data = res.data.clients
             data.map(d => {
               if(d.isActive === true) {
@@ -264,20 +259,23 @@ class ClientsList extends React.Component{
                 personDisablerLoading: false,
                 showPersonDisablerDialog: false
             })
+          }else{
+            toast(res.data.message, {type: toast.TYPE.ERROR});
+          }
 
         }).catch(err => {
             console.log(err);
             toast('خطا در بارگیری مجدد لیست', {type: toast.TYPE.ERROR});
-
             this.setState({
                 loading: false,
                 errorMsg: err.message,
                 personDisablerLoading: false,
                 showPersonDisablerDialog: false
             })
-
-        //  this.errorOnCatch()
         })
+      }else{
+        toast(firstRes.data.message, {type: toast.TYPE.ERROR});
+      }
       }).catch(error => {
         toast('خطا در تغییر فعالیت کاربر', {type: toast.TYPE.ERROR});
       })
@@ -296,39 +294,38 @@ class ClientsList extends React.Component{
       }).then(firstRes => {
         if(firstRes.data.state === 1) {
           toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-        }
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
-          toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-        }
 
         axiosConfig.get('/Account/GetAllClients', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
             console.log(res.data);
             this.setState({
-              loading: false,
-              data: res.data.clients
+              loading: false
             })
 
-            let data = res.data.clients
-            data.map(d => {
-              if(d.isActive === true) {
-                d.isActive = 'فعال'
-              } else {
-                d.isActive = 'غیر فعال'
-              }
-              if(d.isRegister === true) {
-                d.isRegister = 'موفق'
-              } else {
-                d.isRegister = 'ناموفق'
-              }
-              return d.isActive, d.isRegister
-            })
-            this.setState({
-                data: res.data.clients,
-                personDisablerLoading: false,
-                showPersonDisablerDialog: false
-            })
+            if(res.data.clients !== null && res.data.state === 1) {
+              let data = res.data.clients
+              data.map(d => {
+                if(d.isActive === true) {
+                  d.isActive = 'فعال'
+                } else {
+                  d.isActive = 'غیر فعال'
+                }
+                if(d.isRegister === true) {
+                  d.isRegister = 'موفق'
+                } else {
+                  d.isRegister = 'ناموفق'
+                }
+                return d.isActive, d.isRegister
+              })
+              this.setState({
+                  data: res.data.clients,
+                  personDisablerLoading: false,
+                  showPersonDisablerDialog: false
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
 
         }).catch(err => {
             console.log(err);
@@ -341,7 +338,9 @@ class ClientsList extends React.Component{
                 showPersonDisablerDialog: false
             })
         })
-
+      }else{
+        toast(firstRes.data.message, {type: toast.TYPE.ERROR});
+      }
       }).catch(error => {
         toast('خطا در تغییر فعالیت کاربر', {type: toast.TYPE.ERROR});
       })
@@ -410,7 +409,7 @@ class ClientsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست سرویس گیرنده ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[

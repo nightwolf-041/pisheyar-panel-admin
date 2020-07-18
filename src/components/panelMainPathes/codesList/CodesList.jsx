@@ -113,31 +113,54 @@ class CodesList extends React.Component{
               this.setState({
                   data: res.data.codes
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
-              this.setState({
-                data: []
-              })
             }
 
         }).catch(err => {
-
           this.setState({
             loading: false,
             errorMsg: err.message
           })
-
-         this.errorOnCatch()
+          this.errorOnCatch()
         })
     }
+
+    addRow = newData => {
+      return new Promise((resolve, reject) => {
+        console.log(newData);
+        axiosConfig.post('/Code/Create', {
+            codeGroupGuid: this.props.codeGroupGuid,
+            name: newData.name,
+            displayName: newData.displayName,
+        }, {
+            headers: { Authorization: "Bearer " + this.props.token }
+        }).then(res => {
+            if(res.data.state === 1){
+            this.setState(prevState => {
+                const data = [...prevState.data];
+                data.push(newData);
+                return { ...prevState, data };
+                }, () => {
+                    resolve()
+                    toast('کد با موفقیت اضافه شد', {type: toast.TYPE.SUCCESS});
+                })
+            }else{
+                reject()
+                toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
+        }).catch(err => {
+            reject()
+            toast('خطا در افزودن کد', {type: toast.TYPE.ERROR});
+        })
+    })
+  }
 
 
     render() {
         return (
             <>
-            <PanelMain header={<PanelMainCodesListhead />}>
+            <PanelMain header={<PanelMainCodesListhead/>}>
                 {
                   this.state.loading ?
                   <div className="d-flex justify-content-center">
@@ -191,38 +214,12 @@ class CodesList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست گروه ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
 
                           editable={{
-                            onRowAdd: newData => new Promise((resolve, reject) => {
-                                console.log(newData);
-                                axiosConfig.post('/Code/Create', {
-                                    codeGroupGuid: this.props.codeGroupGuid,
-                                    name: newData.name,
-                                    displayName: newData.displayName,
-                                }, {
-                                    headers: { Authorization: "Bearer " + this.props.token }
-                                }).then(res => {
-                                    if(res.data.state === 1){
-                                    this.setState(prevState => {
-                                        const data = [...prevState.data];
-                                        data.push(newData);
-                                        return { ...prevState, data };
-                                        }, () => {
-                                            resolve()
-                                            toast('کد با موفقیت اضافه شد', {type: toast.TYPE.SUCCESS});
-                                        })
-                                    }else{
-                                        reject()
-                                        toast(res.data.message, {type: toast.TYPE.ERROR});
-                                    }
-                                }).catch(err => {
-                                    reject()
-                                    toast('خطا در افزودن کد', {type: toast.TYPE.ERROR});
-                                })
-                            }),
+                            onRowAdd: newData => this.addRow(newData),
 
 
                             onRowDelete: oldData =>

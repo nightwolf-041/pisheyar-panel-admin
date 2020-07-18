@@ -1101,14 +1101,12 @@ class LoginPage extends Component {
             registerStep2Status: registerStep2Status,
         })
 
-        axios.post('http://185.94.97.164/api/Account/Authenticate', {
+        axiosConfig.post('/Account/Authenticate', {
             phoneNumber: this.state.loginPhoneNumberValue,
             smsToken: this.state.loginStep2CodeValue,
             rememberMe: true,
             roleGuid: this.state.authenticateRoleGuid
         }).then(res => {
-
-            console.log(res)
 
             if(res.data.token !== null) {
                 const registerStep2Status = {...this.state.registerStep2Status}

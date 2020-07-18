@@ -121,7 +121,7 @@ class AdvertisementsList extends React.Component{
             console.log(res);
             this.setState({loading: false})
 
-            if(res.data.state === 1) {
+            if(res.data.advertisements !== null && res.data.state === 1) {
               let data = res.data.advertisements
               data.map(d => {
                 if(d.isShow === true) {
@@ -134,9 +134,7 @@ class AdvertisementsList extends React.Component{
               this.setState({
                   data: res.data.advertisements
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
@@ -166,7 +164,7 @@ class AdvertisementsList extends React.Component{
             console.log(res);
             this.setState({loading: false})
 
-            if(res.data.state === 1) {
+            if(res.data.state !== null && res.data.advertisements === 1) {
               let data = res.data.advertisements
               data.map(d => {
                 if(d.isShow === true) {
@@ -179,9 +177,7 @@ class AdvertisementsList extends React.Component{
               this.setState({
                   data: res.data.advertisements
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
@@ -192,15 +188,21 @@ class AdvertisementsList extends React.Component{
             errorMsg: err.message
           })
 
-         this.errorOnCatch()
+          this.errorOnCatch()
         })
+    }
+
+    showModal = () => {
+      this.setState({
+        showCreateAdvertisementModal: true
+      })
     }
 
 
     render() {
         return (
             <>
-            <PanelMain header={<PanelMainAdvertisementListhead />}>
+            <PanelMain header={<PanelMainAdvertisementListhead showModal={this.showModal} />} >
                 {
                   this.state.loading ?
                   <div className="d-flex justify-content-center">
@@ -254,7 +256,7 @@ class AdvertisementsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست تبلیغات"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -267,16 +269,16 @@ class AdvertisementsList extends React.Component{
                                 // this.props.history.state = 'showSinglepost'
                               }
                             },
-                            {
-                              icon: Add,
-                              isFreeAction: true,
-                              tooltip: 'ساخت تبلیغ',
-                              onClick: () => {
-                                this.setState({
-                                  showCreateAdvertisementModal: true
-                                })
-                              }
-                            },
+                            // {
+                            //   icon: Add,
+                            //   isFreeAction: true,
+                            //   tooltip: 'ساخت تبلیغ',
+                            //   onClick: () => {
+                            //     this.setState({
+                            //       showCreateAdvertisementModal: true
+                            //     })
+                            //   }
+                            // },
                           ]}
                         editable={{
 

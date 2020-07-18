@@ -165,8 +165,7 @@ class PermissionsList extends React.Component{
         }).then(res => {
             console.log(res);
             this.setState({
-                loading: false,
-                // data: res.data.admins
+                loading: false
             })
 
             if(res.data.state === 1) {
@@ -188,9 +187,6 @@ class PermissionsList extends React.Component{
                   data: res.data.admins
               })
             }else{
-              this.setState({
-                data: []
-              })
               toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
@@ -407,7 +403,7 @@ class PermissionsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست دسترسی ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -467,7 +463,7 @@ class PermissionsList extends React.Component{
                                 })
                               } else{
                                 reject()
-                                toast('خطا در حذف ادمین', {type: toast.TYPE.ERROR});
+                                toast(res.data.message, {type: toast.TYPE.ERROR});
                               }
 
                             }).catch(err => {

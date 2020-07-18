@@ -166,26 +166,30 @@ class AdminsList extends React.Component{
             console.log(res.data);
             this.setState({
                 loading: false,
-                data: res.data.admins
+                // data: res.data.admins
             })
 
-            let data = res.data.admins
-            data.map(d => {
-              if(d.isActive === true) {
-                d.isActive = 'فعال'
-              } else {
-                d.isActive = 'غیر فعال'
-              }
-              if(d.isRegister === true) {
-                d.isRegister = 'موفق'
-              } else {
-                d.isRegister = 'ناموفق'
-              }
-              return d.isActive, d.isRegister
-            })
-            this.setState({
-                data: res.data.admins
-            })
+            if(res.data.admins !== null && res.data.state === 1) {
+              let data = res.data.admins
+              data.map(d => {
+                if(d.isActive === true) {
+                  d.isActive = 'فعال'
+                } else {
+                  d.isActive = 'غیر فعال'
+                }
+                if(d.isRegister === true) {
+                  d.isRegister = 'موفق'
+                } else {
+                  d.isRegister = 'ناموفق'
+                }
+                return d.isActive, d.isRegister
+              })
+              this.setState({
+                  data: res.data.admins
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
 
         }).catch(err => {
             console.log(err);
@@ -223,11 +227,6 @@ class AdminsList extends React.Component{
 
         if(firstRes.data.state === 1) {
           toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-        }
-
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
-          toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-        }
 
         axiosConfig.get('/Account/GetAllAdmins', {
           headers: { Authorization: "Bearer " + this.props.token }
@@ -238,39 +237,41 @@ class AdminsList extends React.Component{
                 data: res.data.admins
             })
 
-            let data = res.data.admins
-            data.map(d => {
-              if(d.isActive === true) {
-                d.isActive = 'فعال'
-              } else {
-                d.isActive = 'غیر فعال'
-              }
-              if(d.isRegister === true) {
-                d.isRegister = 'موفق'
-              } else {
-                d.isRegister = 'ناموفق'
-              }
-              return d.isActive, d.isRegister
-            })
-            this.setState({
+            if(res.data.admins !== null && res.data.state === 1) {
+              let data = res.data.admins
+              data.map(d => {
+                if(d.isActive === true) {
+                  d.isActive = 'فعال'
+                } else {
+                  d.isActive = 'غیر فعال'
+                }
+                if(d.isRegister === true) {
+                  d.isRegister = 'موفق'
+                } else {
+                  d.isRegister = 'ناموفق'
+                }
+                return d.isActive, d.isRegister
+              })
+              this.setState({
                 data: res.data.admins,
                 personDisablerLoading: false,
                 showPersonDisablerDialog: false
-            })
-
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
         }).catch(err => {
-            console.log(err);
             toast('خطا در بارگیری مجدد لیست', {type: toast.TYPE.ERROR});
-
             this.setState({
                 loading: false,
                 errorMsg: err.message,
                 personDisablerLoading: false,
                 showPersonDisablerDialog: false
             })
-
-        //  this.errorOnCatch()
         })
+      }else{
+        toast(firstRes.data.message, {type: toast.TYPE.ERROR});
+      }
       }).catch(error => {
         toast('خطا در تغییر فعالیت کاربر', {type: toast.TYPE.ERROR});
       })
@@ -289,11 +290,7 @@ class AdminsList extends React.Component{
       }).then(firstRes => {
         if(firstRes.data.state === 1) {
           toast('عملیات موفقیت آمیز', {type: toast.TYPE.SUCCESS});
-        }
-        if(firstRes.data.state === 2 || firstRes.data.state === 3 || firstRes.data.state === 4 ) {
-          toast(firstRes.data.message, {type: toast.TYPE.ERROR});
-        }
-
+       
         axiosConfig.get('/Account/GetAllAdmins', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
@@ -334,7 +331,9 @@ class AdminsList extends React.Component{
                 showPersonDisablerDialog: false
             })
         })
-
+      }else{
+        toast(firstRes.data.message, {type: toast.TYPE.ERROR});
+      }
       }).catch(error => {
         toast('خطا در تغییر فعالیت کاربر', {type: toast.TYPE.ERROR});
       })
@@ -400,7 +399,7 @@ class AdminsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست ادمین ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[

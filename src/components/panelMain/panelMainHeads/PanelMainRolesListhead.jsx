@@ -36,7 +36,7 @@ const PanelMainRolesListhead = (props) => {
             <div className={classes.mainSectionHeader}>
                 <div className={classes.mainSectionHeaderDescs}>
                     <h5 className={classes.mainSectionHeaderTitle}>لیست نقش ها</h5>
-                    <p className={classes.mainSectionHeaderSubtitle}>نقش</p>
+                    {/* <p className={classes.mainSectionHeaderSubtitle}>نقش</p> */}
                 </div>
                 <div className={classes.mainSectionHeaderIcons}>
                     <BootstrapTooltip placement="right" title="افزودن">
@@ -45,36 +45,6 @@ const PanelMainRolesListhead = (props) => {
                             className={classes.mainSectionHeaderIcon}/>
                         </div>
                     </BootstrapTooltip>
-
-                    <FontAwesomeIcon icon={faEllipsisV}
-                        className={classes.mainSectionHeaderIcon}
-                        onClick={props.clicked} />
-                </div>
-            </div>
-
-            <div className={!props.showMainHeaderModal ?
-                classes.mainSectionHeaderDropdown :
-                classes.mainSectionHeaderDropdownToggle}>
-                <div className={classes.mainSectionHeaderDropdownItem}>
-                    <FontAwesomeIcon icon={faCloudDownloadAlt}
-                        className={classes.mainSectionHeaderDropdownItemIcon} />
-                    <button className={classes.mainSectionHeaderDropdownItemText}>
-                        تمام کارمندان
-                    </button>
-                </div>
-                <div className={classes.mainSectionHeaderDropdownItem}>
-                    <FontAwesomeIcon icon={faCloudDownloadAlt}
-                        className={classes.mainSectionHeaderDropdownItemIcon} />
-                    <button className={classes.mainSectionHeaderDropdownItemText}>
-                        تمام مدیران
-                    </button>
-                </div>
-                <div className={classes.mainSectionHeaderDropdownItem}>
-                    <FontAwesomeIcon icon={faCloudDownloadAlt}
-                        className={classes.mainSectionHeaderDropdownItemIcon} />
-                    <button className={classes.mainSectionHeaderDropdownItemText}>
-                        تمام کاربران
-                    </button>
                 </div>
             </div>
         </>

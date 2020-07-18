@@ -132,30 +132,22 @@ class ContactUsList extends React.Component{
         axiosConfig.get('/ContactUs/GetAll', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
-            console.log(res);
             this.setState({loading: false})
 
             if(res.data.state === 1) {
               this.setState({
                   data: res.data.contactUsMessages
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
-              this.setState({
-                data: []
-              })
             }
 
         }).catch(err => {
-
           this.setState({
             loading: false,
             errorMsg: err.message
           })
-
-         this.errorOnCatch()
+          this.errorOnCatch()
         })
     }
 
@@ -217,7 +209,7 @@ class ContactUsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست پیام های ارتباط با ما"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -276,7 +268,7 @@ class ContactUsList extends React.Component{
                                 })
                               } else{
                                 reject()
-                                toast('خطا در حذف پست', {type: toast.TYPE.ERROR});
+                                toast(res.data.message, {type: toast.TYPE.ERROR});
                               }
 
                             }).catch(err => {

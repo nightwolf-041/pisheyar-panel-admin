@@ -35,7 +35,7 @@ const PanelMainAdminsListhead = (props) => {
             <div className={classes.mainSectionHeader}>
                 <div className={classes.mainSectionHeaderDescs}>
                     <h5 className={classes.mainSectionHeaderTitle}>لیست ادمین ها</h5>
-                    <p className={classes.mainSectionHeaderSubtitle}>ادمینو نگا</p>
+                    {/* <p className={classes.mainSectionHeaderSubtitle}>ادمینو نگا</p> */}
                 </div>
                 <div className={classes.mainSectionHeaderIcons}>
                     <BootstrapTooltip placement="right" title="افزودن">
@@ -45,13 +45,13 @@ const PanelMainAdminsListhead = (props) => {
                         </div>
                     </BootstrapTooltip>
 
-                    <FontAwesomeIcon icon={faEllipsisV}
+                    {/* <FontAwesomeIcon icon={faEllipsisV}
                         className={classes.mainSectionHeaderIcon}
-                        onClick={props.clicked} />
+                        onClick={props.clicked} /> */}
                 </div>
             </div>
 
-            <div className={!props.showMainHeaderModal ?
+            {/* <div className={!props.showMainHeaderModal ?
                 classes.mainSectionHeaderDropdown :
                 classes.mainSectionHeaderDropdownToggle}>
                 <div className={classes.mainSectionHeaderDropdownItem}>
@@ -75,7 +75,7 @@ const PanelMainAdminsListhead = (props) => {
                         تمام کاربران
                     </button>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

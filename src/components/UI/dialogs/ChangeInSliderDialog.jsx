@@ -2,6 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Button, CircularProgress} from '@material-ui/core/';
 import Dialog from '@material-ui/core/Dialog';
+import InputLabel from '@material-ui/core/InputLabel';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -24,6 +28,13 @@ const styles = makeStyles(theme => ({
     fontSize: '0.9rem',
     textAlign: 'left',
     marginBottom: '0.6rem'
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    width: '100%'
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
   buttonDanger: {
     width: '8rem',
@@ -68,6 +79,8 @@ export default function ChangeInSliderDialog(props) {
 
   const classes = styles();
 
+  const slideOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+
   return (
     <div>
       <Dialog
@@ -83,6 +96,22 @@ export default function ChangeInSliderDialog(props) {
           <DialogContentText className={classes.title} id="alert-dialog-slide-description">
             نمایش پست در اسلایدر
           </DialogContentText>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="slideOrder-native-simple">ترتیب</InputLabel>
+            <Select
+              native
+              value={props.slideOrder}
+              onChange={props.slideOrderChange}
+              inputProps={{
+                name: 'slideOrder',
+                id: 'slideOrder-native-simple',
+              }}
+            >
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <div className={classes.wrapper}>

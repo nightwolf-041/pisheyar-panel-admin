@@ -35,16 +35,9 @@ const PanelMainPaymentsListhead = (props) => {
             <div className={classes.mainSectionHeader}>
                 <div className={classes.mainSectionHeaderDescs}>
                     <h5 className={classes.mainSectionHeaderTitle}>لیست تراکنش ها</h5>
-                    <p className={classes.mainSectionHeaderSubtitle}>تراکنش ها</p>
+                    {/* <p className={classes.mainSectionHeaderSubtitle}>تراکنش ها</p> */}
                 </div>
                 <div className={classes.mainSectionHeaderIcons}>
-                    <BootstrapTooltip placement="right" title="افزودن">
-                        <div>
-                        <FontAwesomeIcon icon={faPlus}
-                            className={classes.mainSectionHeaderIcon}/>
-                        </div>
-                    </BootstrapTooltip>
-
                     <FontAwesomeIcon icon={faEllipsisV}
                         className={classes.mainSectionHeaderIcon}
                         onClick={props.clicked} />

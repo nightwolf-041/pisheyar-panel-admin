@@ -2,7 +2,7 @@ import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import axiosConfig from '../../../axiosConfigure/axiosConfig'
-import PanelMainProvincesListhead from '../../panelMain/panelMainHeads/PanelMainProvincesListhead'
+import PanelMainCitiesListhead from '../../panelMain/panelMainHeads/PanelMainCitiesListhead'
 import PanelMain from '../../panelMain/PanelMain'
 import * as pagesActionCreators from '../../../storeConfigure/actionCreators/pagesActionCreators'
 import MaterialTable from "material-table";
@@ -104,22 +104,15 @@ class ProvincesList extends React.Component{
               this.setState({
                   data: res.data.cities
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
-              this.setState({
-                data: []
-              })
             }
 
         }).catch(err => {
-
           this.setState({
             loading: false,
             errorMsg: err.message
           })
-
          this.errorOnCatch()
         })
     }
@@ -128,7 +121,7 @@ class ProvincesList extends React.Component{
     render() {
         return (
             <>
-            <PanelMain header={<PanelMainProvincesListhead />}>
+            <PanelMain header={<PanelMainCitiesListhead />}>
                 {
                   this.state.loading ?
                   <div className="d-flex justify-content-center">
@@ -182,7 +175,7 @@ class ProvincesList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست شهر ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[

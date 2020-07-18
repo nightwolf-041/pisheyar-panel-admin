@@ -140,11 +140,10 @@ class PaymentsList extends React.Component{
         }).then(res => {
             console.log(res.data);
             this.setState({
-                loading: false,
-                // data: res.data.payments
+                loading: false
             })
 
-            if(res.data.state === 1) {
+            if(res.data.payments !== null && res.data.state === 1) {
               let data = res.data.payments
               data.map(d => {
                 if(d.trackingToken === null) {
@@ -163,9 +162,6 @@ class PaymentsList extends React.Component{
                   data: res.data.payments
               })
             }else{
-              this.setState({
-                data: []
-              })
               toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
@@ -241,7 +237,7 @@ class PaymentsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست تراکنش ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                     />

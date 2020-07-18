@@ -562,7 +562,7 @@ class DataTable extends React.Component {
               pageSizeOptions: [10, 20, 30]
             }}
             icons={tableIcons}
-            title="لیست گروه ها"
+            title=""
             columns={this.state.columns}
             data={this.state.data}
             editable={{

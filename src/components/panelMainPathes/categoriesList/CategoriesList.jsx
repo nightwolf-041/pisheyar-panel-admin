@@ -105,17 +105,20 @@ class CategoriesList extends React.Component{
         }).then(res => {
             console.log(res.data);
             this.setState({
-                loading: false,
-                data: res.data.primaryCategories
+              loading: false,
             })
-
+            if(res.data.state === 1) {
+              this.setState({
+                data: res.data.primaryCategories
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
         }).catch(err => {
-
           this.setState({
             loading: false,
             errorMsg: err.message
           })
-
          this.errorOnCatch()
         })
     }
@@ -176,7 +179,7 @@ class CategoriesList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست دسته بندی ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[

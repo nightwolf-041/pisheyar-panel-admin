@@ -143,7 +143,7 @@ class SuggestedPostsList extends React.Component{
             console.log(res);
             this.setState({loading: false})
 
-            if(res.data.state === 1) {
+            if(res.data.posts !== null && res.data.state === 1) {
               let data = res.data.posts
               data.map(d => {
                 if(d.isShow === true) {
@@ -156,9 +156,7 @@ class SuggestedPostsList extends React.Component{
               this.setState({
                   data: res.data.posts
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
@@ -231,7 +229,7 @@ class SuggestedPostsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست پست های منختب سردبیر"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[
@@ -290,7 +288,7 @@ class SuggestedPostsList extends React.Component{
                                 })
                               } else{
                                 reject()
-                                toast('خطا در حذف پست', {type: toast.TYPE.ERROR});
+                                toast(res.data.message, {type: toast.TYPE.ERROR});
                               }
 
                             }).catch(err => {

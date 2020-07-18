@@ -164,11 +164,10 @@ class PaymentsList extends React.Component{
         }).then(res => {
             console.log(res.data);
             this.setState({
-                loading: false,
-                // data: res.data.payments
+                loading: false
             })
 
-            if(res.data.state === 1) {
+            if(res.data.payments !== null && res.data.state === 1) {
               let data = res.data.payments
               data.map(d => {
                 if(d.trackingToken === null) {
@@ -187,22 +186,15 @@ class PaymentsList extends React.Component{
                   data: res.data.payments
               })
             }else{
-              this.setState({
-                data: []
-              })
               toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
         }).catch(err => {
-            console.log(err);
             this.errorOnCatch()
-
             this.setState({
                 loading: false,
                 errorMsg: err.message
             })
-
-        //  this.errorOnCatch()
         })
     }
 
@@ -215,7 +207,6 @@ class PaymentsList extends React.Component{
             endDate: this.rangeDatePicker.current.state.endDate._d,
             successfulStatus: null
         }
-        console.log(data);
 
         axiosConfig.get(`/Payment/GetAll?contractorGuid=null&startDate=${this.rangeDatePicker.current.state.startDate._d}&endDate=${this.rangeDatePicker.current.state.endDate._d}&successfulStatus=null`, {
             headers: { Authorization: "Bearer " + this.props.token }
@@ -223,8 +214,7 @@ class PaymentsList extends React.Component{
             this.setState({
                 loading: false
             })
-
-           if(res.data.state === 1) {
+           if(res.data.payments !== null && res.data.state === 1) {
             let data = res.data.payments
             data.map(d => {
               if(d.trackingToken === null) {
@@ -243,16 +233,11 @@ class PaymentsList extends React.Component{
                 data: res.data.payments
             })
            }else{
-                this.setState({
-                    data: []
-                })
-                toast(res.data.message, {type: toast.TYPE.ERROR});
+              toast(res.data.message, {type: toast.TYPE.ERROR});
            }
 
         }).catch(err => {
-            console.log(err);
             this.errorOnCatch()
-
             this.setState({
                 loading: false,
                 errorMsg: err.message
@@ -358,7 +343,7 @@ class PaymentsList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست پرداخت ها بر اساس زمان"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                     />

@@ -103,22 +103,15 @@ class CodeGroupesList extends React.Component{
               this.setState({
                   data: res.data.codeGroups
               })
-            }
-
-            if(res.data.state === 2 || res.data.state === 3 || res.data.state === 4) {
+            }else{
               toast(res.data.message, {type: toast.TYPE.ERROR});
-              this.setState({
-                data: []
-              })
             }
 
         }).catch(err => {
-
           this.setState({
             loading: false,
             errorMsg: err.message
           })
-
          this.errorOnCatch()
         })
     }
@@ -181,7 +174,7 @@ class CodeGroupesList extends React.Component{
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست گروه ها"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                         actions={[

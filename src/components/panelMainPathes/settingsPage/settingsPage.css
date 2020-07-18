@@ -36,6 +36,10 @@ nav {
     direction: rtl;
 }
 
+.MuiAppBar-root{
+    z-index: 20 !important;
+}
+
 .layout-nav-setting-box-item {
     display: flex;
     flex-direction: row-reverse;

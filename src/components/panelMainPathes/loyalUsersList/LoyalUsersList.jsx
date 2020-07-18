@@ -111,33 +111,23 @@ class LoyalUsersList extends React.Component {
         axiosConfig.get('/Account/GetLoyalContractors', {
           headers: { Authorization: "Bearer " + this.props.token }
         }).then(res => {
-            console.log(res);
-            console.log(res.data.loyalContractors);
             this.setState({
                 loading: false,
             })
-
             if(res.data.state === 1) {
                 this.setState({
                     data: res.data.loyalContractors
                 })
             }else{
-                this.setState({
-                    data: []
-                })
                 toast(res.data.message, {type: toast.TYPE.ERROR});
             }
 
         }).catch(err => {
-            console.log(err);
             this.errorOnCatch()
-
             this.setState({
                 loading: false,
                 errorMsg: err.message
             })
-
-        //  this.errorOnCatch()
         })
     }
 
@@ -200,7 +190,7 @@ class LoyalUsersList extends React.Component {
                         pageSizeOptions: [10, 20, 30]
                         }}
                         icons={tableIcons}
-                        title="لیست کاربران وفادار"
+                        title=""
                         columns={this.state.columns}
                         data={this.state.data}
                     />
