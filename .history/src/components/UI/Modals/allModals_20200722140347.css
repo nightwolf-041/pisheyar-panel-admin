@@ -1,0 +1,24 @@
+.inputsDir {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.inputsDirCenter {
+    direction: rtl !important;
+}
+
+#adminemail,
+#adminphonenumber,
+#discountvalue {
+    text-align: center !important;
+}
+
+.textRight {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+.discountDatepicker .dp__input {
+    width: 100% !important;
+    padding: 0.9rem !important;
+}

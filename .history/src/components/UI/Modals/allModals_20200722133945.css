@@ -1,0 +1,19 @@
+.inputsDir {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.inputsDirCenter {
+    direction: rtl !important;
+}
+
+#adminemail,
+#adminphonenumber,
+#discountvalue {
+    text-align: center !important;
+}
+
+.textRight {
+    text-align: right !important;
+    direction: rtl !important;
+}
