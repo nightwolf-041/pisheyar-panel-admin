@@ -1,6 +1,6 @@
 {
-    "name": "befoys-panel",
-    "version": "0.1.0",
+    "name": "pisheplus-panel",
+    "version": "4.1.0",
     "private": true,
     "dependencies": {
         "@babel/plugin-transform-react-jsx": "^7.9.4",
@@ -54,6 +54,7 @@
         "animejs": "^3.1.0",
         "axios": "^0.19.0",
         "bootstrap": "^4.4.1",
+        "chart.js": "^2.9.3",
         "filepond": "^4.13.1",
         "filepond-plugin-file-poster": "^2.2.0",
         "filepond-plugin-file-validate-size": "^2.2.1",

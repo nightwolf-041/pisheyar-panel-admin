@@ -242,9 +242,11 @@ class PanelSidebar extends Component {
                             <img
                             src={
                                 this.state.userGender !== null && this.state.userGender.name === "مرد" ?
+                                maleAvatar :
+                                this.state.userGender !== null && this.state.userGender.name === "زن" ?
                                 maleAvatar
                                 :
-                                femaleAvatar
+                                null
                             }
                             alt="profile" className={classes.layoutSidebarTopProfile} />
                         </div>

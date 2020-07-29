@@ -1,0 +1,101 @@
+.HomePageTopBoxes {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.HomePageTopBox {
+    width: 14rem;
+    height: 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: space-between;
+    background-color: #1d1d1d;
+    border-radius: 1rem;
+    box-shadow: 0 0 0.5rem 0.5rem #1d1d1d27;
+    padding: 0.8rem;
+    margin: 0 0.5rem 1rem 0.5;
+}
+
+.HomePageTopBoxTitle {
+    direction: rtl;
+    color: #ffffff;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.HomePageTopBoxCount {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.homePageChartTtile {
+    text-align: right;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 2rem;
+    padding-right: 1rem
+}
+
+@media screen and (max-width: 1505px) {
+    .HomePageTopBox:nth-child(1) {
+        width: calc(33% - 1rem)
+    }
+    .HomePageTopBox:nth-child(2) {
+        width: calc(33% - 1rem)
+    }
+    .HomePageTopBox:nth-child(3) {
+        width: calc(33% - 1rem)
+    }
+    .HomePageTopBox:nth-child(4) {
+        width: calc(50% - 1rem)
+    }
+    .HomePageTopBox:nth-child(5) {
+        width: calc(50% - 1rem)
+    }
+}
+
+@media screen and (max-width: 1015px) {
+    .HomePageTopBox:nth-child(1) {
+        width: calc(50% - 1rem)
+    }
+    .HomePageTopBox:nth-child(2) {
+        width: calc(50% - 1rem)
+    }
+    .HomePageTopBox:nth-child(3) {
+        width: 100%
+    }
+    .HomePageTopBox:nth-child(4) {
+        width: 100%
+    }
+    .HomePageTopBox:nth-child(5) {
+        width: 100%
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .HomePageTopBox:nth-child(1) {
+        width: 100%
+    }
+    .HomePageTopBox:nth-child(2) {
+        width: 100%
+    }
+    .HomePageTopBox:nth-child(3) {
+        width: 100%
+    }
+    .HomePageTopBox:nth-child(4) {
+        width: 100%
+    }
+    .HomePageTopBox:nth-child(5) {
+        width: 100%
+    }
+}

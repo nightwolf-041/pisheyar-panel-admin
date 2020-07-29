@@ -228,23 +228,26 @@ class PostsList extends React.Component{
               this.setState({loading: false})
   
               if(res.data.posts !== null && res.data.state === 1) {
-                let data = res.data.posts
-                data.map(d => {
-                  if(d.postIsShow === true) {
-                    d.postIsShow = 'نمایش'
-                  } else {
-                    d.postIsShow = 'عدم نمایش'
-                  }
-                  return d.postIsShow
-                })
-                this.setState({
-                  data: res.data.posts,
-                  openChangeSliderDialog: false,
-                  changeInSliderLoading: false
-                })
-              }else{
-                toast(res.data.message, {type: toast.TYPE.ERROR});
-              }
+              let data = res.data.posts
+              data.map(d => {
+                if(d.isShow === true) {
+                  d.isShow = 'نمایش'
+                } else {
+                  d.isShow = 'عدم نمایش'
+                }
+                if(d.isSuggested === true) {
+                  d.isSuggested = 'منتخب'
+                } else {
+                  d.isSuggested = 'غیر منتخب'
+                }
+                return d.isShow, d.isSuggested
+              })
+              this.setState({
+                  data: res.data.posts
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
   
           }).catch(err => {
             this.setState({
@@ -288,24 +291,27 @@ class PostsList extends React.Component{
           }).then(res => {
               this.setState({loading: false})
   
-              if(res.data.posts !== null && res.data.state === 1) {
-                let data = res.data.posts
-                data.map(d => {
-                  if(d.postIsShow === true) {
-                    d.postIsShow = 'نمایش'
-                  } else {
-                    d.postIsShow = 'عدم نمایش'
-                  }
-                  return d.postIsShow
-                })
-                this.setState({
-                  data: res.data.posts,
-                  openChangeSliderDialog: false,
-                  changeInSliderLoading: false
-                })
-              }else{
-                toast(res.data.message, {type: toast.TYPE.ERROR});
-              }
+             if(res.data.posts !== null && res.data.state === 1) {
+              let data = res.data.posts
+              data.map(d => {
+                if(d.isShow === true) {
+                  d.isShow = 'نمایش'
+                } else {
+                  d.isShow = 'عدم نمایش'
+                }
+                if(d.isSuggested === true) {
+                  d.isSuggested = 'منتخب'
+                } else {
+                  d.isSuggested = 'غیر منتخب'
+                }
+                return d.isShow, d.isSuggested
+              })
+              this.setState({
+                  data: res.data.posts
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
   
           }).catch(err => {
   
@@ -352,24 +358,27 @@ class PostsList extends React.Component{
           }).then(res => {
               this.setState({loading: false})
   
-              if(res.data.posts !== null && res.data.state === 1) {
-                let data = res.data.posts
-                data.map(d => {
-                  if(d.postIsShow === true) {
-                    d.postIsShow = 'نمایش'
-                  } else {
-                    d.postIsShow = 'عدم نمایش'
-                  }
-                  return d.postIsShow
-                })
-                this.setState({
-                  data: res.data.posts,
-                  openChangeSliderDialog: false,
-                  changeInSliderLoading: false
-                })
-              }else{
-                toast(res.data.message, {type: toast.TYPE.ERROR});
-              }
+             if(res.data.posts !== null && res.data.state === 1) {
+              let data = res.data.posts
+              data.map(d => {
+                if(d.isShow === true) {
+                  d.isShow = 'نمایش'
+                } else {
+                  d.isShow = 'عدم نمایش'
+                }
+                if(d.isSuggested === true) {
+                  d.isSuggested = 'منتخب'
+                } else {
+                  d.isSuggested = 'غیر منتخب'
+                }
+                return d.isShow, d.isSuggested
+              })
+              this.setState({
+                  data: res.data.posts
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
   
           }).catch(err => {
   
@@ -417,23 +426,26 @@ class PostsList extends React.Component{
               this.setState({loading: false})
   
               if(res.data.posts !== null && res.data.state === 1) {
-                let data = res.data.posts
-                data.map(d => {
-                  if(d.postIsShow === true) {
-                    d.postIsShow = 'نمایش'
-                  } else {
-                    d.postIsShow = 'عدم نمایش'
-                  }
-                  return d.postIsShow
-                })
-                this.setState({
-                  data: res.data.posts,
-                  openChangeSliderDialog: false,
-                  changeInSliderLoading: false
-                })
-              }else{
-                toast(res.data.message, {type: toast.TYPE.ERROR});
-              }
+              let data = res.data.posts
+              data.map(d => {
+                if(d.isShow === true) {
+                  d.isShow = 'نمایش'
+                } else {
+                  d.isShow = 'عدم نمایش'
+                }
+                if(d.isSuggested === true) {
+                  d.isSuggested = 'منتخب'
+                } else {
+                  d.isSuggested = 'غیر منتخب'
+                }
+                return d.isShow, d.isSuggested
+              })
+              this.setState({
+                  data: res.data.posts
+              })
+            }else{
+              toast(res.data.message, {type: toast.TYPE.ERROR});
+            }
   
           }).catch(err => {
   

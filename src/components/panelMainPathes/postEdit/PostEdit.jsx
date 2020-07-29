@@ -239,6 +239,7 @@ const styles = theme => ({
                 }
             }
           ]
+          console.log(defaultImage);
           let defCatgory = {...post.category}
           let defTags = [...post.tags]
           let dafaultTrimed = [...defTags.map(def => def.name)]
@@ -360,6 +361,18 @@ const styles = theme => ({
         loadingOnSend: true,
       })
 
+      const dataa = {
+        postGuid: this.props.postGuid,
+        title: this.state.post.title,
+        abstract: this.state.post.abstract,
+        description: this.state.post.description,
+        isShow: this.state.checked,
+        documentGuid: this.state.documentGuid.replace(/['"]+/g, ''),
+        categories: finalValue,
+        tags: replacedTrimedValues
+      }
+      console.log(dataa);
+
      axiosConfig.post('/Post/Update', {
         postGuid: this.props.postGuid,
         title: this.state.post.title,
@@ -372,6 +385,8 @@ const styles = theme => ({
      }, {
       headers: { Authorization: "Bearer " + this.props.token }
     }).then(res => {
+
+      console.log(res.data);
         
         if(res.data.state === 1) {
             this.setState({

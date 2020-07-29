@@ -50,3 +50,118 @@ hr {
     height: auto;
     padding: 0 6px;
 }
+
+/* CKEditor neceseries styles  */
+
+.marker-green {
+    background-color: rgba(116, 226, 122, 0.459);
+}
+
+.marker-red {
+    background-color: #f7534775;
+}
+
+.marker-yellow {
+    background-color: rgba(255, 233, 36, 0.459);
+}
+
+.marker-blue {
+    background-color: #BBDEFB;
+}
+
+.marker-grey {
+    background-color: rgba(204, 204, 204, 0.726);
+}
+
+figcaption {
+    text-align: center !important;
+}
+
+.image img {
+    width: 100%;
+}
+
+.image_resized {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    /* display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important; */
+    overflow: hidden !important;
+}
+
+.image_resized img {
+    width: -webkit-fill-available !important;
+    max-width: 100% !important;
+}
+
+@supports not (width: -webkit-fill-available) {
+    .image_resized img {
+        width: inherit !important;
+        max-width: 100% !important;
+    }
+}
+
+.image-style-align-left {
+    max-width: 50% !important;
+    text-align: left !important;
+    float: left !important;
+    text-align: center !important;
+    /* display: flex !important;
+    justify-content: center !important;
+    align-items: center !important; */
+    overflow: hidden !important;
+    margin-right: 20px !important;
+}
+
+.image-style-align-left::after,
+.image-style-align-left::before {
+    clear: both !important;
+}
+
+.image-style-align-left img {
+    width: -webkit-fill-available !important;
+    max-width: 100% !important;
+}
+
+@supports not (width: -webkit-fill-available) {
+    .image-style-align-left img {
+        width: inherit !important;
+        max-width: 100% !important;
+    }
+}
+
+.image-style-align-right {
+    max-width: 50% !important;
+    text-align: right !important;
+    float: right !important;
+    text-align: center !important;
+    /* display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important; */
+    overflow: hidden !important;
+    margin-left: 20px !important;
+}
+
+.image-style-align-right::after,
+.image-style-align-right::before {
+    clear: both !important;
+}
+
+.image-style-align-right img {
+    width: -webkit-fill-available !important;
+    max-width: 100% !important;
+}
+
+@supports not (width: -webkit-fill-available) {
+    .image-style-align-right img {
+        width: inherit !important;
+        max-width: 100% !important;
+    }
+}
+
+
+/* CKEditor neceseries styles  */
